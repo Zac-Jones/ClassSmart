@@ -9,6 +9,6 @@ namespace ClassSmart.Model
 {
     internal class Student : User
     {
-        public List<Class> Classes { get; set; }
+        public List<Class> Classes { get; set; } = new List<Class>();
     }
 }

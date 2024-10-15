@@ -10,8 +10,8 @@ namespace ClassSmart.Models
     internal class Class
     {
         public int Id { get; set; }
-        public List<Student> Students { get; set; }
+        public List<Student> Students { get; set; } = new List<Student>();
+        public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
-
     }
 }

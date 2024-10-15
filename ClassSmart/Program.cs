@@ -1,4 +1,6 @@
+using ClassSmart.Data;
 using ClassSmart.Forms;
+using ClassSmart.Model;
 
 namespace ClassSmart
 {
