@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassSmart.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,19 @@ namespace ClassSmart.Forms
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private User user;
+
+        public MainForm(User user)
         {
+            this.user = user;
+
             InitializeComponent();
+            InitializeCustomComponents();
+        }
+
+        private void InitializeCustomComponents()
+        {
+            
         }
     }
 }
