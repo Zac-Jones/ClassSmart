@@ -18,31 +18,49 @@
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 350);
-            this.Text = "Login";
-
-            this.txtUsername = new TextBox();
-            this.txtUsername.Location = new Point(100, 100);
-            this.txtUsername.Size = new Size(200, 30);
-            this.txtUsername.PlaceholderText = "Username";
-
-            this.txtPassword = new TextBox();
-            this.txtPassword.Location = new Point(100, 150);
-            this.txtPassword.Size = new Size(200, 30);
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.PlaceholderText = "Password";
-
-            this.btnLogin = new Button();
-            this.btnLogin.Location = new Point(150, 200);
-            this.btnLogin.Size = new Size(100, 30);
-            this.btnLogin.Text = "Login";
-            this.btnLogin.Click += new EventHandler(this.BtnLogin_Click);
-
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.btnLogin);
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            btnLogin = new Button();
+            SuspendLayout();
+            // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(100, 115);
+            txtUsername.Name = "txtUsername";
+            txtUsername.PlaceholderText = "Username";
+            txtUsername.Size = new Size(200, 23);
+            txtUsername.TabIndex = 0;
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(100, 165);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.PlaceholderText = "Password";
+            txtPassword.Size = new Size(200, 23);
+            txtPassword.TabIndex = 1;
+            // 
+            // btnLogin
+            // 
+            btnLogin.Location = new Point(150, 215);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(100, 30);
+            btnLogin.TabIndex = 2;
+            btnLogin.Text = "Login";
+            btnLogin.Click += BtnLogin_Click;
+            // 
+            // LoginForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(400, 350);
+            Controls.Add(txtUsername);
+            Controls.Add(txtPassword);
+            Controls.Add(btnLogin);
+            Name = "LoginForm";
+            Text = "Login";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
