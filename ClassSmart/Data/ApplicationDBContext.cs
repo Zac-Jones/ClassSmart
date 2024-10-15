@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ClassSmart.Models;
 using ClassSmart.Model;
+using DotNetEnv;
 
 namespace ClassSmart.Data
 {
@@ -8,11 +9,18 @@ namespace ClassSmart.Data
     {
         public DbSet<Class> Classes { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Student> Students { get; set; }    
+        public DbSet<Student> Students { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=localhost;Database=class_smart;User Id=root;Password=ASDr00tp@55;Port=3306;";
+            Env.Load();
+
+            string connectionString = $"Server={Env.GetString("DB_SERVER")};" +
+                                      $"Database={Env.GetString("DB_DATABASE")};" +
+                                      $"User Id={Env.GetString("DB_USER")};" +
+                                      $"Password={Env.GetString("DB_PASSWORD")};" +
+                                      $"Port={Env.GetString("DB_PORT")};";
+
             optionsBuilder.UseMySQL(connectionString);
         }
 
