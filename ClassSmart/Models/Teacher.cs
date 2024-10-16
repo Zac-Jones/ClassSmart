@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassSmart.Model
 {
-    internal class Teacher : User
+    public class Teacher : User
     {
         public Class Class { get; set; }
     }
