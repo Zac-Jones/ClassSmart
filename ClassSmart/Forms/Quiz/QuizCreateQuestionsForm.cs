@@ -33,8 +33,6 @@ namespace ClassSmart.Forms.Quiz
 
         private void displayMultipleChoice()
         {
-            Controls.Add(label5);
-            Controls.Add(textBox5);
             Controls.Add(label3);
             Controls.Add(textBox4);
             Controls.Add(checkBox4);
@@ -47,12 +45,47 @@ namespace ClassSmart.Forms.Quiz
             Controls.Add(textBox1);
         }
 
+        private void displayTrueFalse()
+        {
+            
+        }
+
+        private void displayLongAnswer()
+        {
+            
+        }
+
+        private void displayShortAnswer()
+        {
+            
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearControls();
-            if (comboBox1.SelectedItem.ToString() == "MultipleChoice")
+            if (comboBox1.SelectedItem != null)
             {
-                displayMultipleChoice();
+                switch (comboBox1.SelectedItem.ToString())
+                {
+                    case "MultipleChoice":
+                        displayMultipleChoice();
+                        break;
+
+                    case "TrueFalse":
+                        displayTrueFalse();
+                        break;
+
+                    case "LongAnswer":
+                        displayLongAnswer();
+                        break;
+
+                    case "ShortAnswer":
+                        displayShortAnswer();
+                        break;
+                }
+
+                Controls.Add(label5);
+                Controls.Add(textBox5);
             }
         }
 

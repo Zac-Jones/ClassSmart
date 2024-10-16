@@ -7,7 +7,7 @@ namespace ClassSmart.Utilities
 {
     public class PopulateTables
     {
-        public static void InsertTeachers()
+        public static void InsertUsers()
         {
             using (var context = new ApplicationDBContext())
             {
@@ -23,6 +23,21 @@ namespace ClassSmart.Utilities
                     };
 
                     context.Teachers.Add(newTeacher);
+                    context.SaveChanges();
+                }
+
+                var existingStudent = context.Students.FirstOrDefault(t => t.Email == "john@doe.com");
+
+                if (existingStudent == null)
+                {
+                    var newStudent = new Student
+                    {
+                        Name = "John Doe",
+                        Email = "john@doe.com",
+                        Password = "password"
+                    };
+
+                    context.Students.Add(newStudent);
                     context.SaveChanges();
                 }
             }
