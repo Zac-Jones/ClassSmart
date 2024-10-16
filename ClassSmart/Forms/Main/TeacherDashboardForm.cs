@@ -45,7 +45,7 @@ namespace ClassSmart.Forms
 
         private void createQuizBtn_Click(object sender, EventArgs e)
         {
-            QuizCreateMainForm quizCreateMainForm = new QuizCreateMainForm(this);
+            QuizCreateMainForm quizCreateMainForm = new QuizCreateMainForm(teacher, this);
             quizCreateMainForm.Show();
             Hide();
         }

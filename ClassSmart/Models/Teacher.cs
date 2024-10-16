@@ -9,6 +9,6 @@ namespace ClassSmart.Model
 {
     public class Teacher : User
     {
-        public Class Class { get; set; }
+        public Class Class { get; set; } = new Class();
     }
 }

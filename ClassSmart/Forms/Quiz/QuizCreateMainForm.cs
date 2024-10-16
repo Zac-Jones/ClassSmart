@@ -1,4 +1,5 @@
 ﻿using ClassSmart.Forms.Quiz;
+using ClassSmart.Model;
 using ClassSmart.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -16,9 +17,10 @@ namespace ClassSmart.Forms
 {
     public partial class QuizCreateMainForm : Form
     {
-        public QuizCreateMainForm(TeacherDashboardForm teacherDashboardForm)
+        public QuizCreateMainForm(Teacher teacher, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacherDashboardForm = teacherDashboardForm;
+            this.teacher = teacher;
             InitializeComponent();
             FormClosing += new FormClosingEventHandler(QuizCreateForm_FormClosing);
         }
@@ -74,7 +76,7 @@ namespace ClassSmart.Forms
             quiz.EndTime = dateTimePicker2.Value;
             quiz.TotalPoints = (double)numericUpDown3.Value;
 
-            QuizCreateQuestionsForm quizCreateQuestionsForm = new QuizCreateQuestionsForm(teacherDashboardForm, this, quiz, (int)numericUpDown2.Value);
+            QuizCreateQuestionsForm quizCreateQuestionsForm = new QuizCreateQuestionsForm(teacher, teacherDashboardForm, this, quiz, (int)numericUpDown2.Value);
             quizCreateQuestionsForm.Show();
             Hide();
         }
