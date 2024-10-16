@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassSmart.Enums
 {
-    internal enum QuestionType
+    public enum QuestionType
     {
         MultipleChoice,
         ShortAnswer,
