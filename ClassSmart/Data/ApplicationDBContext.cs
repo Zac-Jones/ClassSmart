@@ -5,7 +5,7 @@ using DotNetEnv;
 
 namespace ClassSmart.Data
 {
-    internal class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : DbContext
     {
         public DbSet<Class> Classes { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
