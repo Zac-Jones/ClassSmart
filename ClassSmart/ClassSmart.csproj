@@ -24,4 +24,10 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
