@@ -41,16 +41,19 @@ namespace ClassSmart.Data.Repositories
         public void UpdateTeacher(Teacher teacher)
         {
             _context.Teachers.Update(teacher);
+            _context.SaveChanges();
         }
 
         public void AddTeacher(Teacher teacher)
         {
             _context.Teachers.Add(teacher);
+            _context.SaveChanges();
         }
 
         public void AddStudent(Student student)
         {
             _context.Students.Add(student);
+            _context.SaveChanges();
         }
     }
 }

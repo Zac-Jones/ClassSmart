@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ClassSmart.Models;
 using ClassSmart.Model;
 using ClassSmart.Forms.Main;
+using ClassSmart.Forms.TeacherSpecific;
 
 namespace ClassSmart.Forms
 {
@@ -51,7 +52,9 @@ namespace ClassSmart.Forms
 
         private void viewQuizzesBtn_Click(object sender, EventArgs e)
         {
-            
+            QuizViewForm quizViewForm = new QuizViewForm(teacher, this);
+            quizViewForm.Show();
+            Hide();
         }
 
         private void createQuizBtn_Click(object sender, EventArgs e)

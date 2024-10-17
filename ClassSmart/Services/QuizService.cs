@@ -44,7 +44,16 @@ namespace ClassSmart.Services
             teacher.Class = existingClass;
 
             _userRepository.UpdateTeacher(teacher);
-            _quizRepository.AddQuiz(quiz);
+        }
+
+        public Quiz GetQuizByName(string quizName, Teacher teacher)
+        {
+            return _quizRepository.GetQuizByName(quizName, teacher);
+        }
+
+        public List<Quiz> GetQuizzesByTeacher(Teacher teacher)
+        {
+            return _quizRepository.GetQuizzesByTeacher(teacher);
         }
     }
 }

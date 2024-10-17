@@ -37,11 +37,11 @@ namespace ClassSmart.Forms.Quiz
 
             InitializeComponent();
             comboBox1.DataSource = Enum.GetValues(typeof(QuestionType));
-            FormClosing += new FormClosingEventHandler(QuizCreaeQuestionsForm_FormClosing);
+            FormClosing += new FormClosingEventHandler(QuizCreateQuestionsForm_FormClosing);
             label1.Text = $"Quiz: {quiz.Name} - Question #{questionNumber}";
         }
 
-        private void QuizCreaeQuestionsForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void QuizCreateQuestionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }

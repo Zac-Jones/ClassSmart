@@ -1,4 +1,5 @@
-﻿using ClassSmart.Models;
+﻿using ClassSmart.Model;
+using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace ClassSmart.Data.Repositories
     public interface IQuizRepository
     {
         void AddQuiz(Quiz quiz);
+        Quiz GetQuizByName(string quizName, Teacher teacher);
+        List<Quiz> GetQuizzesByTeacher(Teacher teacher);
     }
 }

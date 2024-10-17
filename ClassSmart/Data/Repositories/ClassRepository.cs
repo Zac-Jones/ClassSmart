@@ -24,6 +24,7 @@ namespace ClassSmart.Data.Repositories
         public void AddClass(Class newClass)
         {
             _context.Classes.Add(newClass);
+            _context.SaveChanges();
         }
     }
 }
