@@ -1,7 +1,9 @@
 ﻿using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Enums;
 using ClassSmart.Model;
 using ClassSmart.Models;
+using ClassSmart.Services;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,14 @@ namespace ClassSmart.Forms.Quiz
             this.quiz = quiz;
             this.numOfQuestions = numOfQuestions;
             this.teacher = teacher;
+
+            var dbContext = new ApplicationDBContext();
+            var classRepository = new ClassRepository(dbContext);
+            var quizRepository = new QuizRepository(dbContext);
+            var userRepository = new UserRepository(dbContext);
+
+            _quizService = new QuizService(classRepository, quizRepository, userRepository);
+
 
             InitializeComponent();
             comboBox1.DataSource = Enum.GetValues(typeof(QuestionType));
@@ -164,31 +174,15 @@ namespace ClassSmart.Forms.Quiz
         private void incrementQuestion()
         {
             questionNumber++;
+
+            if (questionNumber == numOfQuestions)
+            {
+                nextQuestionBtn.Text = "Submit Quiz";
+            }
+
             if (questionNumber > numOfQuestions)
             {
-                using (var context = new ApplicationDBContext())
-                {
-
-                    var existingClass = context.Classes.FirstOrDefault(c => c.TeacherId == teacher.Id);
-
-                    if (existingClass == null)
-                    {
-                        existingClass = new Class
-                        {
-                            TeacherId = teacher.Id,
-                            Teacher = teacher,
-                            Students = new List<Student>()
-                        };
-                    }
-
-                    existingClass.Quizzes.Add(quiz);
-
-                    teacher.Class = existingClass;
-
-                    context.Teachers.Update(teacher);
-                    context.Quizzes.Add(quiz);
-                    context.SaveChanges();
-                }
+                _quizService.CreateQuizForTeacher(teacher, quiz);
 
                 MessageBox.Show("Quiz created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 teacherDashboardForm.Show();

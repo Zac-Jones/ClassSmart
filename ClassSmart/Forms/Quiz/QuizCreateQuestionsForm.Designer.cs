@@ -1,4 +1,5 @@
 ﻿using ClassSmart.Model;
+using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Quiz
 {
@@ -304,6 +305,7 @@ namespace ClassSmart.Forms.Quiz
 
         #endregion
 
+        private QuizService _quizService;
         private Models.Quiz quiz;
         private TeacherDashboardForm teacherDashboardForm;
         private Teacher teacher;

@@ -1,6 +1,8 @@
 ﻿using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
+using ClassSmart.Services;
 using System;
 using System.Linq;
 
@@ -8,56 +10,19 @@ namespace ClassSmart.Utilities
 {
     public class PopulateTables
     {
-        public static void InsertUsers()
+        public static void Init()
         {
-            using (var context = new ApplicationDBContext())
-            {
-                var existingTeacher = context.Teachers.FirstOrDefault(t => t.Email == "test@teacher.com");
+            var dbContext = new ApplicationDBContext();
+            var userRepository = new UserRepository(dbContext);
+            var classRepository = new ClassRepository(dbContext);
+            var userService = new UserService(userRepository, classRepository);
 
-                if (existingTeacher == null)
-                {
-                    var newTeacher = new Teacher
-                    {
-                        Name = "Test Teacher",
-                        Email = "test@teacher.com",
-                        Password = "password"
-                    };
+            var teacher = userService.InsertTeacher("Test Teacher", "test@teacher.com", "password");
+            var student = userService.InsertStudent("John Doe", "john@doe.com", "password");
 
-                    context.Teachers.Add(newTeacher);
-                    context.SaveChanges();
-                    existingTeacher = newTeacher;
-                }
+            userService.AssignClassToTeacher(teacher, student);
 
-                var existingStudent = context.Students.FirstOrDefault(t => t.Email == "john@doe.com");
-
-                if (existingStudent == null)
-                {
-                    var newStudent = new Student
-                    {
-                        Name = "John Doe",
-                        Email = "john@doe.com",
-                        Password = "password"
-                    };
-
-                    context.Students.Add(newStudent);
-                    context.SaveChanges();
-                    existingStudent = newStudent;
-                }
-
-                var existingClass = context.Classes.FirstOrDefault(c => c.TeacherId == existingTeacher.Id);
-                if (existingClass == null)
-                {
-                    var newClass = new Class
-                    {
-                        TeacherId = existingTeacher.Id,
-                        Teacher = existingTeacher,
-                        Students = new List<Student> { existingStudent }
-                    };
-
-                    context.Classes.Add(newClass);
-                    context.SaveChanges();
-                }
-            }
+            dbContext.SaveChanges();
         }
     }
 }

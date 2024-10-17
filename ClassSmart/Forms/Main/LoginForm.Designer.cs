@@ -1,4 +1,6 @@
-﻿namespace ClassSmart.Forms
+﻿using ClassSmart.Services;
+
+namespace ClassSmart.Forms
 {
     partial class LoginForm
     {
@@ -110,5 +112,6 @@
         private TextBox textBox2;
         private Button button1;
         private Label errorLabel;
+        private UserService _userService;
     }
 }
