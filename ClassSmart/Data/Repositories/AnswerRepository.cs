@@ -26,5 +26,11 @@ namespace ClassSmart.Data.Repositories
                     .ToList();
             }
         }
+
+        public void Update(Answer answer)
+        {
+            _context.Answers.Update(answer);
+            _context.SaveChanges();
+        }
     }
 }

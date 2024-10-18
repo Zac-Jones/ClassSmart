@@ -60,5 +60,10 @@ namespace ClassSmart.Services
         {
             _quizRepository.DeleteQuiz(quizId);
         }
+
+        public void UpdateQuiz(Quiz quiz)
+        {
+            _quizRepository.UpdateQuiz(quiz);
+        }
     }
 }

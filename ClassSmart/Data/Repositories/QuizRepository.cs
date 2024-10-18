@@ -49,5 +49,11 @@ namespace ClassSmart.Data.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public void UpdateQuiz(Quiz quiz)
+        {
+            _context.Quizzes.Update(quiz);
+            _context.SaveChanges();
+        }
     }
 }

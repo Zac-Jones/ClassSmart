@@ -21,5 +21,9 @@ namespace ClassSmart.Services
         {
             return _answerRepository.GetAnswersByQuestionId(questionId);
         }
+        public void UpdateAnswer(Answer answer)
+        {
+            _answerRepository.Update(answer);
+        }
     }
 }

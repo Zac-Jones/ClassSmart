@@ -397,5 +397,10 @@ namespace ClassSmart.Forms.TeacherSpecific
         private Button deleteQuizBtn;
         private TeacherDashboardForm teacherDashboardForm;
         private Teacher teacher;
+        private TextBox questionTextBox;
+        private TextBox mcTextBox1;
+        private TextBox mcTextBox2;
+        private TextBox mcTextBox3;
+        private TextBox mcTextBox4;
     }
 }

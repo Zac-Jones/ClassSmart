@@ -21,6 +21,11 @@ namespace ClassSmart.Services
         {
             return _questionRepository.GetQuestionsByQuizId(quizId);
         }
+
+        public void UpdateQuestion(Question question)
+        {
+            _questionRepository.Update(question);
+        }
     }
 
 }

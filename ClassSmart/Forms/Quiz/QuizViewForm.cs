@@ -103,6 +103,13 @@ namespace ClassSmart.Forms.TeacherSpecific
         }
         public void showMultipleChoiceQuestion(Question q)
         {
+            Controls.Remove(mcTextBox1);
+            Controls.Remove(mcTextBox2);
+            Controls.Remove(mcTextBox3);
+            Controls.Remove(mcTextBox4);
+            Controls.Remove(questionTextBox);
+            Controls.Add(questionLabel);
+
             if (editing)
             {
                 checkBox1.Enabled = true;
@@ -155,6 +162,8 @@ namespace ClassSmart.Forms.TeacherSpecific
             multipleChoiceAnswer3.BringToFront();
             multipleChoiceAnswer4.BringToFront();
 
+            questionLabel.BringToFront();
+
             MaximumSize = new Size(608, 490);
             MinimumSize = new Size(608, 490);
             Size = new Size(608, 490);
@@ -162,6 +171,9 @@ namespace ClassSmart.Forms.TeacherSpecific
 
         public void showTrueFalse(Question q)
         {
+            Controls.Remove(questionTextBox);
+            Controls.Add(questionLabel);
+
             if (editing)
             {
                 trueRadioBtn.Enabled = true;
@@ -205,18 +217,106 @@ namespace ClassSmart.Forms.TeacherSpecific
             trueLabel.BringToFront();
             trueRadioBtn.BringToFront();
             falseRadioBtn.BringToFront();
-
+            questionLabel.BringToFront();
         }
 
         private void editSaveBtn_Click(object sender, EventArgs e)
         {
             if (editing)
             {
-                // DO SAVE HERE
+                var quizService = new QuizService(new ClassRepository(new ApplicationDBContext()), new QuizRepository(new ApplicationDBContext()), new UserRepository(new ApplicationDBContext()));
+                var questionService = new QuestionService(new QuestionRepository(new ApplicationDBContext()));
+                var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
+
+                var questions = questionService.GetQuestionsByQuizId(activeQuiz.Id);
+                if (questions == null || questions.Count == 0)
+                {
+                    MessageBox.Show("No questions found for the selected quiz.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var question = questions[questionIndex];
+
+                if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
+                {
+                    if (mcTextBox1.Text.IsNullOrEmpty() || mcTextBox2.Text.IsNullOrEmpty() || mcTextBox3.Text.IsNullOrEmpty() || mcTextBox4.Text.IsNullOrEmpty() || questionTextBox.Text.IsNullOrEmpty())
+                    {
+                        MessageBox.Show("Please fill out all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (!checkBox1.Checked && !checkBox2.Checked && !checkBox3.Checked && !checkBox4.Checked)
+                    {
+                        MessageBox.Show("Please select at least one correct answer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    var answers = answerService.GetAnswersByQuestionId(question.Id);
+                    if (answers.Count < 4)
+                    {
+                        MessageBox.Show("Invalid number of answers found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    question.Text = questionTextBox.Text;
+                    answers[0].Text = mcTextBox1.Text;
+                    answers[1].Text = mcTextBox2.Text;
+                    answers[2].Text = mcTextBox3.Text;
+                    answers[3].Text = mcTextBox4.Text;
+                    answers[0].IsCorrect = checkBox1.Checked;
+                    answers[1].IsCorrect = checkBox2.Checked;
+                    answers[2].IsCorrect = checkBox3.Checked;
+                    answers[3].IsCorrect = checkBox4.Checked;
+
+                    questionService.UpdateQuestion(question);
+                    foreach (var answer in answers)
+                    {
+                        answerService.UpdateAnswer(answer);
+                    }
+
+                    MessageBox.Show("Question updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (_questions[questionIndex].Type.Equals(QuestionType.TrueFalse))
+                {
+                    if (questionTextBox.Text.IsNullOrEmpty())
+                    {
+                        MessageBox.Show("Please fill out the question field", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    var answers = answerService.GetAnswersByQuestionId(question.Id);
+                    if (answers.Count != 2)
+                    {
+                        MessageBox.Show("Invalid number of answers found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    question.Text = questionTextBox.Text;
+                    answers[0].IsCorrect = trueRadioBtn.Checked;
+                    answers[1].IsCorrect = falseRadioBtn.Checked;
+
+                    questionService.UpdateQuestion(question);
+                    foreach (var answer in answers)
+                    {
+                        answerService.UpdateAnswer(answer);
+                    }
+
+                    MessageBox.Show("True/False question updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 editing = false;
                 editSaveBtn.Text = "Edit";
                 homeCancelBtn.Text = "Home";
                 clearControls();
+
+                quizzes = _quizService.GetQuizzesByTeacher(_teacher);
+                _questions = questionService.GetQuestionsByQuizId(activeQuiz.Id);
+
+                if (_questions != null && _questions.Count > 0)
+                {
+                    _answers = answerService.GetAnswersByQuestionId(_questions[questionIndex].Id);
+                }
+
                 if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
                 {
                     showMultipleChoiceQuestion(_questions[questionIndex]);
@@ -226,6 +326,7 @@ namespace ClassSmart.Forms.TeacherSpecific
                     showTrueFalse(_questions[questionIndex]);
                 }
             }
+
             else
             {
                 editing = true;
@@ -234,13 +335,102 @@ namespace ClassSmart.Forms.TeacherSpecific
                 clearControls();
                 if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
                 {
-                    showMultipleChoiceQuestion(_questions[questionIndex]);
+                    showMultipleChoiceQuestionEdit(_questions[questionIndex]);
                 }
                 else
                 {
-                    showTrueFalse(_questions[questionIndex]);
+                    showTrueFalseEdit(_questions[questionIndex]);
                 }
             }
+        }
+
+        private void showMultipleChoiceQuestionEdit(Question q)
+        {
+            if (editing)
+            {
+                checkBox1.Enabled = true;
+                checkBox2.Enabled = true;
+                checkBox3.Enabled = true;
+                checkBox4.Enabled = true;
+            }
+            else
+            {
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
+                checkBox3.Enabled = false;
+                checkBox4.Enabled = false;
+            }
+
+            Controls.Remove(multipleChoiceAnswer1);
+            Controls.Remove(multipleChoiceAnswer2);
+            Controls.Remove(multipleChoiceAnswer3);
+            Controls.Remove(multipleChoiceAnswer4);
+            Controls.Remove(questionLabel);
+
+            questionTextBox = new TextBox() { Text = questionLabel.Text, Location = questionLabel.Location, Size = new Size(300, 19) };
+            mcTextBox1 = new TextBox() { Text = multipleChoiceAnswer1.Text, Location = multipleChoiceAnswer1.Location, Size = new Size(300, 19) };
+            mcTextBox2 = new TextBox() { Text = multipleChoiceAnswer2.Text, Location = multipleChoiceAnswer2.Location, Size = new Size(300, 19) };
+            mcTextBox3 = new TextBox() { Text = multipleChoiceAnswer3.Text, Location = multipleChoiceAnswer3.Location, Size = new Size(300, 19) };
+            mcTextBox4 = new TextBox() { Text = multipleChoiceAnswer4.Text, Location = multipleChoiceAnswer4.Location, Size = new Size(300, 19) };
+
+            Controls.Add(mcTextBox1);
+            Controls.Add(mcTextBox2);
+            Controls.Add(mcTextBox3);
+            Controls.Add(mcTextBox4);
+            Controls.Add(questionTextBox);
+
+            Controls.Add(checkBox1);
+            Controls.Add(checkBox2);
+            Controls.Add(checkBox3);
+            Controls.Add(checkBox4);
+
+            questionTextBox.BringToFront();
+            mcTextBox1.BringToFront();
+            mcTextBox2.BringToFront();
+            mcTextBox3.BringToFront();
+            mcTextBox4.BringToFront();
+            checkBox1.BringToFront();
+            checkBox2.BringToFront();
+            checkBox3.BringToFront();
+            checkBox4.BringToFront();
+        }
+
+        private void showTrueFalseEdit(Question q)
+        {
+            if (editing)
+            {
+                trueRadioBtn.Enabled = true;
+                falseRadioBtn.Enabled = true;
+            }
+            else
+            {
+                trueRadioBtn.Enabled = false;
+                falseRadioBtn.Enabled = false;
+            }
+            if (_answers[0].IsCorrect)
+            {
+                trueRadioBtn.Checked = true;
+            }
+            else
+            {
+                falseRadioBtn.Checked = true;
+            }
+
+            Controls.Remove(questionLabel);
+
+            questionTextBox = new TextBox() { Text = questionLabel.Text, Location = questionLabel.Location, Size = new Size(300, 19) };
+
+            Controls.Add(questionTextBox);
+            Controls.Add(falseRadioBtn);
+            Controls.Add(trueRadioBtn);
+            Controls.Add(trueLabel);
+            Controls.Add(falseLabel);
+
+            trueRadioBtn.BringToFront();
+            falseRadioBtn.BringToFront();
+            questionTextBox.BringToFront();
+            trueLabel.BringToFront();
+            falseLabel.BringToFront();
         }
 
         private void nextQuestionBtn_Click(object sender, EventArgs e)
