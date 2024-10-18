@@ -35,7 +35,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             label1 = new Label();
             comboBox1 = new ComboBox();
             label2 = new Label();
-            deleteCancelBtn = new Button();
+            homeCancelBtn = new Button();
             editSaveBtn = new Button();
             label3 = new Label();
             questionNumberLabel = new Label();
@@ -57,7 +57,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             falseLabel = new Label();
             trueRadioBtn = new RadioButton();
             falseRadioBtn = new RadioButton();
-            homeBtn = new Button();
+            deleteQuizBtn = new Button();
             SuspendLayout();
             // 
             // label1
@@ -77,7 +77,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(12, 99);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(568, 23);
+            comboBox1.Size = new Size(467, 23);
             comboBox1.TabIndex = 17;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -91,14 +91,15 @@ namespace ClassSmart.Forms.TeacherSpecific
             label2.TabIndex = 18;
             label2.Text = "Quiz";
             // 
-            // deleteCancelBtn
+            // homeCancelBtn
             // 
-            deleteCancelBtn.Location = new Point(130, 311);
-            deleteCancelBtn.Name = "deleteCancelBtn";
-            deleteCancelBtn.Size = new Size(95, 23);
-            deleteCancelBtn.TabIndex = 19;
-            deleteCancelBtn.Text = "Sample";
-            deleteCancelBtn.UseVisualStyleBackColor = true;
+            homeCancelBtn.Location = new Point(130, 311);
+            homeCancelBtn.Name = "homeCancelBtn";
+            homeCancelBtn.Size = new Size(95, 23);
+            homeCancelBtn.TabIndex = 19;
+            homeCancelBtn.Text = "Home";
+            homeCancelBtn.UseVisualStyleBackColor = true;
+            homeCancelBtn.Click += homeCancelBtn_Click;
             // 
             // editSaveBtn
             // 
@@ -106,7 +107,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             editSaveBtn.Name = "editSaveBtn";
             editSaveBtn.Size = new Size(95, 23);
             editSaveBtn.TabIndex = 20;
-            editSaveBtn.Text = "Sample";
+            editSaveBtn.Text = "Edit";
             editSaveBtn.UseVisualStyleBackColor = true;
             editSaveBtn.Click += editSaveBtn_Click;
             // 
@@ -157,9 +158,8 @@ namespace ClassSmart.Forms.TeacherSpecific
             questionLabel.Font = new Font("Segoe UI", 12F);
             questionLabel.Location = new Point(19, 175);
             questionLabel.Name = "questionLabel";
-            questionLabel.Size = new Size(273, 21);
+            questionLabel.Size = new Size(0, 21);
             questionLabel.TabIndex = 25;
-            questionLabel.Text = "Sample question goes here blah blah?";
             // 
             // multipleChoiceAnswer2
             // 
@@ -321,21 +321,23 @@ namespace ClassSmart.Forms.TeacherSpecific
             falseRadioBtn.TabStop = true;
             falseRadioBtn.UseVisualStyleBackColor = false;
             // 
-            // homeBtn
+            // deleteQuizBtn
             // 
-            homeBtn.Location = new Point(485, 311);
-            homeBtn.Name = "homeBtn";
-            homeBtn.Size = new Size(95, 23);
-            homeBtn.TabIndex = 41;
-            homeBtn.Text = "Home";
-            homeBtn.UseVisualStyleBackColor = true;
+            deleteQuizBtn.Enabled = false;
+            deleteQuizBtn.Location = new Point(485, 98);
+            deleteQuizBtn.Name = "deleteQuizBtn";
+            deleteQuizBtn.Size = new Size(95, 23);
+            deleteQuizBtn.TabIndex = 41;
+            deleteQuizBtn.Text = "Delete Quiz";
+            deleteQuizBtn.UseVisualStyleBackColor = true;
+            deleteQuizBtn.Click += deleteQuizBtn_Click;
             // 
             // QuizViewForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(592, 451);
-            Controls.Add(homeBtn);
+            ClientSize = new Size(592, 346);
+            Controls.Add(deleteQuizBtn);
             Controls.Add(backQuestionBtn);
             Controls.Add(nextQuestionBtn);
             Controls.Add(correctAnswerLabel);
@@ -344,14 +346,12 @@ namespace ClassSmart.Forms.TeacherSpecific
             Controls.Add(questionNumberLabel);
             Controls.Add(label3);
             Controls.Add(editSaveBtn);
-            Controls.Add(deleteCancelBtn);
+            Controls.Add(homeCancelBtn);
             Controls.Add(label2);
             Controls.Add(comboBox1);
             Controls.Add(label1);
             Controls.Add(questionBackground);
             MaximizeBox = false;
-            MaximumSize = new Size(608, 490);
-            MinimumSize = new Size(608, 490);
             Name = "QuizViewForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
@@ -364,7 +364,7 @@ namespace ClassSmart.Forms.TeacherSpecific
         private Label label1;
         private ComboBox comboBox1;
         private Label label2;
-        private Button deleteCancelBtn;
+        private Button homeCancelBtn;
         private Button editSaveBtn;
         private Label label3;
         private Label questionNumberLabel;
@@ -387,12 +387,15 @@ namespace ClassSmart.Forms.TeacherSpecific
         private RadioButton trueRadioBtn;
         private RadioButton falseRadioBtn;
         private bool editing = false;
-        private Button homeBtn;
         private Teacher _teacher;
         private List<Models.Quiz> quizzes = new List<Models.Quiz>();
         private Models.Quiz activeQuiz;
         private QuizService _quizService;
         private List<Question> _questions;
         private List<Answer> _answers;
+        private int questionIndex = 0;
+        private Button deleteQuizBtn;
+        private TeacherDashboardForm teacherDashboardForm;
+        private Teacher teacher;
     }
 }

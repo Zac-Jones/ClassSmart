@@ -4,19 +4,8 @@ using ClassSmart.Enums;
 using ClassSmart.Model;
 using ClassSmart.Models;
 using ClassSmart.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ClassSmart.Forms.TeacherSpecific
 {
@@ -29,6 +18,8 @@ namespace ClassSmart.Forms.TeacherSpecific
             var classRepository = new ClassRepository(dbContext);
             var quizRepository = new QuizRepository(dbContext);
             var userRepository = new UserRepository(dbContext);
+            this.teacherDashboardForm = teacherDashboardForm;
+            this.teacher = teacher;
 
             _quizService = new QuizService(classRepository, quizRepository, userRepository);
 
@@ -47,9 +38,12 @@ namespace ClassSmart.Forms.TeacherSpecific
 
                 if (result == DialogResult.OK)
                 {
-                    teacherDashboardForm.Show();
-                    Hide();
-                    Dispose();
+                    nextQuestionBtn.Enabled = false;
+                    backQuestionBtn.Enabled = false;
+                    comboBox1.Enabled = false;
+                    editSaveBtn.Enabled = false;
+                    deleteQuizBtn.Enabled = false;
+                    homeCancelBtn.Enabled = true;
                     return;
                 }
             }
@@ -63,6 +57,7 @@ namespace ClassSmart.Forms.TeacherSpecific
                     activeQuiz = quiz;
                 }
             }
+            deleteQuizBtn.Enabled = true;
 
             var questionService = new QuestionService(new QuestionRepository(new ApplicationDBContext()));
             _questions = questionService.GetQuestionsByQuizId(activeQuiz.Id);
@@ -71,7 +66,6 @@ namespace ClassSmart.Forms.TeacherSpecific
             {
                 var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
                 _answers = answerService.GetAnswersByQuestionId(_questions.First().Id);
-                // Now you can check the type of the first question
                 if (_questions.First().Type.Equals(QuestionType.MultipleChoice))
                 {
                     showMultipleChoiceQuestion(_questions.First());
@@ -84,12 +78,12 @@ namespace ClassSmart.Forms.TeacherSpecific
 
             if (editing)
             {
-                deleteCancelBtn.Text = "Cancel";
+                homeCancelBtn.Text = "Cancel";
                 editSaveBtn.Text = "Save";
             }
             else
             {
-                deleteCancelBtn.Text = "Delete";
+                homeCancelBtn.Text = "Home";
                 editSaveBtn.Text = "Edit";
             }
         }
@@ -115,7 +109,8 @@ namespace ClassSmart.Forms.TeacherSpecific
                 checkBox2.Enabled = true;
                 checkBox3.Enabled = true;
                 checkBox4.Enabled = true;
-            } else
+            }
+            else
             {
                 checkBox1.Enabled = false;
                 checkBox2.Enabled = false;
@@ -125,10 +120,9 @@ namespace ClassSmart.Forms.TeacherSpecific
 
             questionBackground.Size = new Size(568, 215);
             editSaveBtn.Location = new Point(11, 402);
-            deleteCancelBtn.Location = new Point(130, 402);
+            homeCancelBtn.Location = new Point(130, 402);
             nextQuestionBtn.Location = new Point(248, 402);
             backQuestionBtn.Location = new Point(366, 402);
-            homeBtn.Location = new Point(485, 402);
 
             Controls.Add(checkBox4);
             Controls.Add(checkBox3);
@@ -161,7 +155,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             multipleChoiceAnswer3.BringToFront();
             multipleChoiceAnswer4.BringToFront();
 
-
+            MaximumSize = new Size(608, 490);
+            MinimumSize = new Size(608, 490);
+            Size = new Size(608, 490);
         }
 
         public void showTrueFalse(Question q)
@@ -177,14 +173,18 @@ namespace ClassSmart.Forms.TeacherSpecific
                 falseRadioBtn.Enabled = false;
             }
 
+            questionLabel.Text = q.Text;
+
             questionBackground.Size = new Size(568, 120);
 
-            editSaveBtn.Location = new Point(11, 311);
-            deleteCancelBtn.Location = new Point(130, 311);
-            nextQuestionBtn.Location = new Point(248, 311);
-            backQuestionBtn.Location = new Point(366, 311);
-            homeBtn.Location = new Point(485, 311);
+            editSaveBtn.Location = new Point(11, 305);
+            homeCancelBtn.Location = new Point(130, 305);
+            nextQuestionBtn.Location = new Point(248, 305);
+            backQuestionBtn.Location = new Point(366, 305);
 
+            MaximumSize = new Size(608, 385);
+            MinimumSize = new Size(608, 385);
+            Size = new Size(608, 385);
 
             Controls.Add(falseRadioBtn);
             Controls.Add(trueRadioBtn);
@@ -212,36 +212,106 @@ namespace ClassSmart.Forms.TeacherSpecific
         {
             if (editing)
             {
-                // do save here
+                // DO SAVE HERE
                 editing = false;
                 editSaveBtn.Text = "Edit";
-                Refresh();
+                homeCancelBtn.Text = "Home";
+                clearControls();
+                if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
+                {
+                    showMultipleChoiceQuestion(_questions[questionIndex]);
+                }
+                else
+                {
+                    showTrueFalse(_questions[questionIndex]);
+                }
             }
             else
             {
-                // enable editing here
                 editing = true;
                 editSaveBtn.Text = "Save";
-                Refresh();
+                homeCancelBtn.Text = "Cancel";
+                clearControls();
+                if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
+                {
+                    showMultipleChoiceQuestion(_questions[questionIndex]);
+                }
+                else
+                {
+                    showTrueFalse(_questions[questionIndex]);
+                }
             }
         }
 
         private void nextQuestionBtn_Click(object sender, EventArgs e)
         {
-            // display next question
             backQuestionBtn.Enabled = true;
-            // once at last question disable next button
+
+            if (editing)
+            {
+                editing = false;
+                editSaveBtn.Text = "Edit";
+                homeCancelBtn.Text = "Home";
+            }
+
+            if (questionIndex < _questions.Count - 1) 
+            {
+                questionIndex++;
+                questionNumberLabel.Text = $"Question #{questionIndex + 1}";
+
+                var nextQuestion = _questions[questionIndex];
+                var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
+                _answers = answerService.GetAnswersByQuestionId(nextQuestion.Id);
+
+                clearControls();
+                LoadQuestion(nextQuestion);
+
+                nextQuestionBtn.Enabled = questionIndex < _questions.Count - 1;
+            }
+            else
+            {
+                questionIndex++;
+                questionNumberLabel.Text = $"Question #{questionIndex + 1}";
+                nextQuestionBtn.Enabled = false; 
+
+                var lastQuestion = _questions[questionIndex];
+                var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
+                _answers = answerService.GetAnswersByQuestionId(lastQuestion.Id);
+
+                clearControls();
+                LoadQuestion(lastQuestion);
+            }
         }
+
 
         private void backQuestionBtn_Click(object sender, EventArgs e)
         {
-            // display previous question
-            // once at first question disable back button
+            nextQuestionBtn.Enabled = true;
+
+            if (questionIndex > 0) 
+            {
+                questionIndex--;
+                questionNumberLabel.Text = $"Question #{questionIndex + 1}";
+
+                var previousQuestion = _questions[questionIndex];
+                var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
+                _answers = answerService.GetAnswersByQuestionId(previousQuestion.Id);
+
+                clearControls();
+                LoadQuestion(previousQuestion);
+
+                backQuestionBtn.Enabled = questionIndex > 0;
+            }
         }
+
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearControls();
+            questionIndex = 0;
+            backQuestionBtn.Enabled = false;
+            nextQuestionBtn.Enabled = true;
 
             string selectedQuizName = comboBox1.SelectedItem.ToString();
 
@@ -249,6 +319,7 @@ namespace ClassSmart.Forms.TeacherSpecific
 
             if (activeQuiz != null)
             {
+                questionNumberLabel.Text = "Question #1";
                 var questionService = new QuestionService(new QuestionRepository(new ApplicationDBContext()));
                 _questions = questionService.GetQuestionsByQuizId(activeQuiz.Id);
 
@@ -267,6 +338,92 @@ namespace ClassSmart.Forms.TeacherSpecific
                         showTrueFalse(_questions.First());
                     }
                 }
+            }
+        }
+
+        private void LoadQuestion(Question question)
+        {
+            var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
+
+            _answers = new List<Answer>();
+
+            _answers = answerService.GetAnswersByQuestionId(question.Id);
+
+            if (question.Type == QuestionType.MultipleChoice)
+            {
+                if (_answers.Count == 4)
+                {
+                    showMultipleChoiceQuestion(question);
+                }
+            }
+            else if (question.Type == QuestionType.TrueFalse)
+            {
+                if (_answers.Count == 2)
+                {
+                    showTrueFalse(question);
+                }
+            }
+        }
+
+        private void homeCancelBtn_Click(object sender, EventArgs e)
+        {
+            if (homeCancelBtn.Text.Equals("Cancel"))
+            {
+                editing = false;
+                editSaveBtn.Text = "Edit";
+                homeCancelBtn.Text = "Home";
+                clearControls();
+                if (_questions[questionIndex].Type.Equals(QuestionType.MultipleChoice))
+                {
+                    showMultipleChoiceQuestion(_questions[questionIndex]);
+                }
+                else
+                {
+                    showTrueFalse(_questions[questionIndex]);
+                }
+            } else
+            {
+                Hide();
+                Dispose();
+                teacherDashboardForm.Show();
+            }
+        }
+
+        private void deleteQuizBtn_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+            "Are you sure you want to delete this quiz?",
+            "Confirm Delete",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning
+        );
+
+            if (result == DialogResult.Yes)
+            {
+                _quizService.DeleteQuiz(activeQuiz.Id);
+                MessageBox.Show("Quiz deleted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                quizzes = _quizService.GetQuizzesByTeacher(teacher);
+
+                if (quizzes.IsNullOrEmpty())
+                {
+                    DialogResult result2 = MessageBox.Show(
+                    "You currently do not have any quizzes created! Please go back and start by creating a quiz!",
+                    "Back",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                    if (result2 == DialogResult.OK)
+                    {
+                        teacherDashboardForm.Show();
+                        Hide();
+                        Dispose();
+                        return;
+                    }
+                }
+
+                comboBox1.DataSource = quizzes.Select(q => q.Name).ToList();
             }
         }
     }

@@ -55,5 +55,10 @@ namespace ClassSmart.Services
         {
             return _quizRepository.GetQuizzesByTeacher(teacher);
         }
+
+        public void DeleteQuiz(int quizId)
+        {
+            _quizRepository.DeleteQuiz(quizId);
+        }
     }
 }

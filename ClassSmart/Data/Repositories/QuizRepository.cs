@@ -1,5 +1,6 @@
 ﻿using ClassSmart.Model;
 using ClassSmart.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,16 @@ namespace ClassSmart.Data.Repositories
                 .Where(c => c.TeacherId == teacher.Id)
                 .SelectMany(c => c.Quizzes)
                 .ToList();
+        }
+
+        public void DeleteQuiz(int quizId)
+        {
+            var quiz = _context.Quizzes.Include(q => q.Questions).FirstOrDefault(q => q.Id == quizId);
+            if (quiz != null)
+            {
+                _context.Quizzes.Remove(quiz);
+                _context.SaveChanges();
+            }
         }
     }
 }
