@@ -1,5 +1,4 @@
-﻿using ClassSmart.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,11 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClassSmart.Models;
+using ClassSmart.Model;
+using ClassSmart.Forms.Main;
+using ClassSmart.Forms.TeacherSpecific;
 
 namespace ClassSmart.Forms
 {
     public partial class TeacherDashboardForm : Form
     {
+        //private Teacher teacher;
+        //private LoginForm loginForm;
+
         public TeacherDashboardForm(Teacher teacher, LoginForm loginForm)
         {
             this.teacher = teacher;
@@ -31,21 +37,29 @@ namespace ClassSmart.Forms
         private void viewClassBtn_Click(object sender, EventArgs e)
         {
 
+            Class teacherClass = teacher.Class;
+            ClassDetailsForm classDetailsForm = new ClassDetailsForm(teacherClass, this);
+            classDetailsForm.Show();
+            Hide();
         }
 
         private void viewAnalyticsBtn_Click(object sender, EventArgs e)
         {
-
+            AnalyticsForm analyticsForm = new AnalyticsForm();
+            analyticsForm.Show();
+            Hide();
         }
 
         private void viewQuizzesBtn_Click(object sender, EventArgs e)
         {
-
+            QuizViewForm quizViewForm = new QuizViewForm(teacher, this);
+            quizViewForm.Show();
+            Hide();
         }
 
         private void createQuizBtn_Click(object sender, EventArgs e)
         {
-            QuizCreateMainForm quizCreateMainForm = new QuizCreateMainForm(this);
+            QuizCreateMainForm quizCreateMainForm = new QuizCreateMainForm(teacher, this);
             quizCreateMainForm.Show();
             Hide();
         }

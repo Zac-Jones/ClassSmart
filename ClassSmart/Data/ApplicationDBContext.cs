@@ -10,6 +10,10 @@ namespace ClassSmart.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +38,21 @@ namespace ClassSmart.Data
             modelBuilder.Entity<Student>()
                 .HasMany(s => s.Classes)
                 .WithMany(c => c.Students);
+
+            modelBuilder.Entity<Class>()
+                .HasMany(c => c.Quizzes)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Quiz>()
+                .HasMany(q => q.Questions)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(q => q.Answers)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

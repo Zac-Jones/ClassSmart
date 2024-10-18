@@ -24,7 +24,7 @@ namespace ClassSmart
                 context.Database.EnsureCreated();
             }
             
-            PopulateTables.InsertUsers();
+            PopulateTables.Init();
 
             Application.Run(new LoginForm());   
         }

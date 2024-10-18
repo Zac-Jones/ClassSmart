@@ -1,4 +1,6 @@
-﻿namespace ClassSmart.Forms
+﻿using ClassSmart.Model;
+
+namespace ClassSmart.Forms
 {
     partial class QuizCreateMainForm
     {
@@ -220,6 +222,7 @@
         private Button addQuestionsBtn;
         private Button cancelBtn;
         private TeacherDashboardForm teacherDashboardForm;
+        private Teacher teacher;
         private Label errorLabel;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
+using ClassSmart.Services;
 using ClassSmart.Utilities;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,6 +21,10 @@ namespace ClassSmart.Forms
         public LoginForm()
         {
             InitializeComponent();
+            var dbContext = new ApplicationDBContext();
+            var userRepository = new UserRepository(dbContext);
+            var classRepository = new ClassRepository(dbContext);
+            _userService = new UserService(userRepository, classRepository);
             FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
         }
 
@@ -44,15 +50,25 @@ namespace ClassSmart.Forms
                 return;
             }
 
-            using (var context = new ApplicationDBContext())
-            {
-                var teacher = context.Teachers
-                    .FirstOrDefault(t => t.Email == email && t.Password == password);
+            var teacher = _userService.LoginTeacher(email, password);
 
-                if (teacher != null)
+            if (teacher != null)
+            {
+                TeacherDashboardForm teacherDashboardForm = new TeacherDashboardForm(teacher, this);
+                teacherDashboardForm.Show();
+                Hide();
+                textBox1.Text = "";
+                textBox2.Text = "";
+                errorLabel.Text = "";
+            }
+            else
+            {
+                var student = _userService.LoginStudent(email, password);
+
+                if (student != null)
                 {
-                    TeacherDashboardForm teacherDashboardForm = new TeacherDashboardForm(teacher, this);
-                    teacherDashboardForm.Show();
+                    StudentDashboardForm studentDashboardForm = new StudentDashboardForm(student, this);
+                    studentDashboardForm.Show();
                     Hide();
                     textBox1.Text = "";
                     textBox2.Text = "";
@@ -60,22 +76,7 @@ namespace ClassSmart.Forms
                 }
                 else
                 {
-                    var student = context.Students
-                        .FirstOrDefault(s => s.Email == email && s.Password == password);
-
-                    if (student != null)
-                    {
-                        StudentDashboardForm studentDashboardForm = new StudentDashboardForm(student, this);
-                        studentDashboardForm.Show();
-                        Hide();
-                        textBox1.Text = "";
-                        textBox2.Text = "";
-                        errorLabel.Text = "";
-                    }
-                    else
-                    {
-                        errorLabel.Text = "Invalid login credentials.";
-                    }
+                    errorLabel.Text = "Invalid login credentials.";
                 }
             }
         }
