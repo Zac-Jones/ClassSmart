@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Main
 {
@@ -33,13 +34,16 @@ namespace ClassSmart.Forms.Main
         // Method to Display Class Information
         private void DisplayClass(Student student)
         {
-            ClassRepository cR = new ClassRepository(new ApplicationDBContext());
-            List<Class> classes = student.Classes;
+            UserRepository userRepository = new UserRepository(new ApplicationDBContext());
+            ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
+
+            UserService userService = new UserService(userRepository, classRepository);
+            List<Class> classes = userService.GetClassesForStudent(student);
 
 
             foreach (Class c in classes)
             {
-                List<Models.Quiz> quizzes = c.Quizzes;
+                MessageBox.Show($"Class ID: {c.Id}");
                 int i = 50;
 
                 button1.Text = Convert.ToString(c.Id);

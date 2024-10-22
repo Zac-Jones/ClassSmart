@@ -21,7 +21,7 @@ namespace ClassSmart.Utilities
             var teacher = userService.InsertTeacher("Test Teacher", "test@teacher.com", "password");
             var student = userService.InsertStudent("John Doe", "john@doe.com", "password");
 
-            userService.AssignClassToTeacher(teacher, student);
+            userService.AssignClassToTeacherAndStudent(teacher, student);
 
             dbContext.SaveChanges();
         }

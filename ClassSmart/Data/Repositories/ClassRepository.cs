@@ -1,4 +1,5 @@
-﻿using ClassSmart.Models;
+﻿using ClassSmart.Model;
+using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ namespace ClassSmart.Data.Repositories
         {
             _context.Classes.Add(newClass);
             _context.SaveChanges();
+        }
+
+        public List<Class> GetClassesByStudentId(int studentId)
+        {
+            return _context.Classes.Where(c => c.Students.Any(s => s.Id == studentId)).ToList();
+        }
+
+        public List<Student> GetStudentsByClassId(int classId)
+        {
+            return _context.Classes.Where(c => c.Id == classId).SelectMany(c => c.Students).ToList();
         }
     }
 }

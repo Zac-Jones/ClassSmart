@@ -11,6 +11,7 @@ using ClassSmart.Data;
 using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
+using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Main
 {
@@ -42,9 +43,13 @@ namespace ClassSmart.Forms.Main
         //Method to Display Class Information
         private void DisplayClass(Teacher teacher)
         {
-            ClassRepository cR = new ClassRepository(new ApplicationDBContext());
-            var teacherClass = cR.GetClassByTeacherId(teacher.Id);
-            List<Student> students = teacherClass.Students;
+            ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
+            UserRepository userRepository = new UserRepository(new ApplicationDBContext());
+            var teacherClass = classRepository.GetClassByTeacherId(teacher.Id);
+
+            UserService userService = new UserService(userRepository, classRepository);
+
+            List<Student> students = userService.GetStudentsForClass(teacherClass);
 
             //Available Variable for checking if student objects are in <Student> Students list in class Class
             bool available = false;
