@@ -13,7 +13,7 @@ namespace ClassSmart.Forms
 {
     public partial class QuizAttemptForm : Form
     {
-        public QuizAttemptForm(Models.Quiz quiz, ClassViewQuizzesForm classViewQuizzesForm)
+        public QuizAttemptForm(Models.Quiz quiz)
         {
             InitializeComponent();
         }

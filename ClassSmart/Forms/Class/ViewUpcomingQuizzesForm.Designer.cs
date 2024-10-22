@@ -1,6 +1,6 @@
 ﻿namespace ClassSmart.Forms.Class
 {
-    partial class ClassViewQuizzesForm
+    partial class ViewUpcomingQuizzesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +40,7 @@
             label3.Name = "label3";
             label3.Size = new Size(800, 50);
             label3.TabIndex = 14;
-            label3.Text = "All Quizzes";
+            label3.Text = "Upcoming Quizzes";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cancelBtn
@@ -53,16 +53,16 @@
             cancelBtn.UseVisualStyleBackColor = true;
             cancelBtn.Click += cancelBtn_Click;
             // 
-            // ClassViewQuizzesForm
+            // ViewUpcomingQuizzesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(cancelBtn);
             Controls.Add(label3);
-            Name = "ClassViewQuizzesForm";
+            Name = "ViewUpcomingQuizzesForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClassViewQuizzesForm";
+            Text = "ViewUpcomingQuizzesForm";
             ResumeLayout(false);
         }
 

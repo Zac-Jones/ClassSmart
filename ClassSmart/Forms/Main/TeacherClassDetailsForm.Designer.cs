@@ -95,6 +95,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "TeacherClassDetailsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "TeacherClassDetailsForm";
             ResumeLayout(false);
             PerformLayout();

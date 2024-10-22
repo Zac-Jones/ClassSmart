@@ -18,8 +18,10 @@ namespace ClassSmart.Forms.Main
 {
     public partial class StudentClassDetailsForm : Form
     {
+        StudentDashboardForm studentDashboardForm;
         public StudentClassDetailsForm(Student student, StudentDashboardForm studentDashboardForm)
         {
+            this.studentDashboardForm = studentDashboardForm;
             InitializeComponent();
             DisplayClass(student);
 
@@ -46,14 +48,13 @@ namespace ClassSmart.Forms.Main
                 //Generate a new button
                 Button newButton = new Button();
                 newButton.Text = "Class ID: " + c.Id;
-                var size = new Size(100,50);
+                var size = new Size(100, 50);
                 newButton.Size = size; // Set the size of the button
-                newButton.Location = new System.Drawing.Point((Width/2) - (size.Width/2), i); // Set the location on the form
-                //newButton.Click += new EventHandler(NewButton_Click);
+                newButton.Location = new System.Drawing.Point((Width / 2) - (size.Width / 2), i); // Set the location on the form
                 newButton.Click += (sender, e) => NewButton_Click(sender, e, c);
                 newButton.BringToFront();
                 Controls.Add(newButton);
-                
+
                 i += 50;
             }
         }
@@ -63,6 +64,23 @@ namespace ClassSmart.Forms.Main
             ClassViewQuizzesForm classViewQuizzesForm = new ClassViewQuizzesForm(c, this);
             classViewQuizzesForm.Show();
             Hide();
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+            "Are You Sure You Want To Cancel?",
+            "Confirm Cancel",
+            MessageBoxButtons.OKCancel,
+            MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.OK)
+            {
+                studentDashboardForm.Show();
+                Hide();
+                Dispose();
+            }
         }
     }
 }

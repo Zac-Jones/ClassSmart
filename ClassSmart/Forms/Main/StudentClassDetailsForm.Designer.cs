@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             label3 = new Label();
+            cancelBtn = new Button();
             SuspendLayout();
             // 
             // label3
@@ -42,13 +43,25 @@
             label3.Text = "Student Class Details";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // cancelBtn
+            // 
+            cancelBtn.Location = new Point(12, 415);
+            cancelBtn.Name = "cancelBtn";
+            cancelBtn.Size = new Size(75, 23);
+            cancelBtn.TabIndex = 14;
+            cancelBtn.Text = "Cancel";
+            cancelBtn.UseVisualStyleBackColor = true;
+            cancelBtn.Click += cancelBtn_Click;
+            // 
             // StudentClassDetailsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(cancelBtn);
             Controls.Add(label3);
             Name = "StudentClassDetailsForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "StudentClassDetailsForm";
             ResumeLayout(false);
         }
@@ -56,5 +69,6 @@
         #endregion
 
         private Label label3;
+        private Button cancelBtn;
     }
 }

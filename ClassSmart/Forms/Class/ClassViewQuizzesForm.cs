@@ -18,8 +18,10 @@ namespace ClassSmart.Forms.Class
 {
     public partial class ClassViewQuizzesForm : Form
     {
-        public ClassViewQuizzesForm(Models.Class c, StudentClassDetailsForm studentClassDetailForm)
+        StudentClassDetailsForm studentClassDetailsForm;
+        public ClassViewQuizzesForm(Models.Class c, StudentClassDetailsForm studentClassDetailsForm)
         {
+            this.studentClassDetailsForm = studentClassDetailsForm;
             InitializeComponent();
             DisplayQuizzes(c);
         }
@@ -41,7 +43,6 @@ namespace ClassSmart.Forms.Class
                 var size = new Size(100, 50);
                 newButton.Size = size; // Set the size of the button
                 newButton.Location = new System.Drawing.Point((Width / 2) - (size.Width / 2), i); // Set the location on the form
-                //newButton.Click += new EventHandler(NewButton_Click);
                 newButton.Click += (sender, e) => NewButton_Click(sender, e, q);
                 newButton.BringToFront();
                 Controls.Add(newButton);
@@ -51,9 +52,26 @@ namespace ClassSmart.Forms.Class
         }
         private void NewButton_Click(object sender, EventArgs e, Models.Quiz q)
         {
-            QuizAttemptForm quizAttemptForm = new QuizAttemptForm(q, this);
+            QuizAttemptForm quizAttemptForm = new QuizAttemptForm(q);
             quizAttemptForm.Show();
             Hide();
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+            "Are You Sure You Want To Cancel?",
+            "Confirm Cancel",
+            MessageBoxButtons.OKCancel,
+            MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.OK)
+            {
+                studentClassDetailsForm.Show();
+                Hide();
+                Dispose();
+            }
         }
     }
 }
