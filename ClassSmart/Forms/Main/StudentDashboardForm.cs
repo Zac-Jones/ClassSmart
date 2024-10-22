@@ -1,4 +1,5 @@
-﻿using ClassSmart.Model;
+﻿using ClassSmart.Forms.Main;
+using ClassSmart.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,9 @@ namespace ClassSmart.Forms
 
         private void viewClassesBtn_Click(object sender, EventArgs e)
         {
-
+            StudentClassDetailsForm studentClassDetailsForm = new StudentClassDetailsForm(student, this);
+            studentClassDetailsForm.Show();
+            Hide();
         }
 
         private void viewUpcomingQuizzesBtn_Click(object sender, EventArgs e)

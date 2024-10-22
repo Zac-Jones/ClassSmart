@@ -31,6 +31,12 @@ namespace ClassSmart.Forms.Main
 
             //Display Class Information Here
             DisplayClass(teacher);
+            FormClosing += new FormClosingEventHandler(TeacherClassDetailsForm_FormClosing);
+        }
+
+        private void TeacherClassDetailsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         //Method to Display Class Information
@@ -39,6 +45,8 @@ namespace ClassSmart.Forms.Main
             ClassRepository cR = new ClassRepository(new ApplicationDBContext());
             var teacherClass = cR.GetClassByTeacherId(teacher.Id);
             List<Student> students = teacherClass.Students;
+
+            //Available Variable for checking if student objects are in <Student> Students list in class Class
             bool available = false;
 
 
