@@ -63,6 +63,7 @@ namespace ClassSmart.Forms
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
+            label2.ImageAlign = ContentAlignment.BottomLeft;
             label2.Location = new Point(12, 50);
             label2.Name = "label2";
             label2.Size = new Size(88, 21);

@@ -24,11 +24,7 @@ namespace ClassSmart.Forms.Main
         {
             this.teacher = teacher;
             this.teacherDashboardForm = teacherDashboardForm;
-            InitializeComponent();
-            
-            //Add label1 Text (Title)
-            label1.Text = string.Empty;
-            label1.Text += "Class Details";
+            InitializeComponent();          
 
             //Display Class Information Here
             DisplayClass(teacher);

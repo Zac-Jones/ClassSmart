@@ -20,7 +20,6 @@ namespace ClassSmart.Forms.Main
         public StudentClassDetailsForm(Student student, StudentDashboardForm studentDashboardForm)
         {
             InitializeComponent();
-            button1.Text = "Quiz";
             DisplayClass(student);
 
             FormClosing += new FormClosingEventHandler(StudentClassDetailsForm_FormClosing);
@@ -39,20 +38,27 @@ namespace ClassSmart.Forms.Main
 
             UserService userService = new UserService(userRepository, classRepository);
             List<Class> classes = userService.GetClassesForStudent(student);
-
+            int i = 50;
 
             foreach (Class c in classes)
             {
-                MessageBox.Show($"Class ID: {c.Id}");
-                int i = 50;
-
-                button1.Text = Convert.ToString(c.Id);
+                //Generate a new button
+                Button newButton = new Button();
+                newButton.Text = "Class ID: " + c.Id;
+                var size = new Size(100,50);
+                newButton.Size = size; // Set the size of the button
+                newButton.Location = new System.Drawing.Point((Width/2) - (size.Width/2), i); // Set the location on the form
+                newButton.Click += new EventHandler(NewButton_Click);
+                newButton.BringToFront();
+                Controls.Add(newButton);
+                
+                i += 50;
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void NewButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($" Button Clicked!");
+            
         }
     }
 }
