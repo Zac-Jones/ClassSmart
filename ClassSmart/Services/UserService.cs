@@ -96,5 +96,10 @@ namespace ClassSmart.Services
         {
             return _classRepository.GetStudentsByClassId(_class.Id);
         }
+
+        public List<Quiz> GetQuizzesForClass(Class _class)
+        {
+            return _classRepository.GetQuizzesByClassId(_class.Id);
+        }
     }
 }

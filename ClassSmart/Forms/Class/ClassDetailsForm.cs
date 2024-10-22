@@ -16,14 +16,14 @@ namespace ClassSmart.Forms.Main
     {
         private TeacherDashboardForm teacherDashboardForm;
 
-        public ClassDetailsForm(Class teacherClass, TeacherDashboardForm teacherDashboardForm)
+        public ClassDetailsForm(Models.Class teacherClass, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacherDashboardForm = teacherDashboardForm;
             InitializeComponent();
             DisplayClassDetails(teacherClass);
         }
 
-        private void DisplayClassDetails(Class teacherClass)
+        private void DisplayClassDetails(Models.Class teacherClass)
         {
             label1.Text = $"Class: {teacherClass.Id}";
 

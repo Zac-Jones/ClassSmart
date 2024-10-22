@@ -37,5 +37,10 @@ namespace ClassSmart.Data.Repositories
         {
             return _context.Classes.Where(c => c.Id == classId).SelectMany(c => c.Students).ToList();
         }
+
+        public List<Quiz> GetQuizzesByClassId(int classId)
+        {
+            return _context.Classes.Where(c => c.Id == classId).SelectMany(c => c.Quizzes).ToList();
+        }
     }
 }

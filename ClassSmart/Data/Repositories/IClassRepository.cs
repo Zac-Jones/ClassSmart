@@ -14,5 +14,7 @@ namespace ClassSmart.Data.Repositories
         void AddClass(Class newClass);
         List<Class> GetClassesByStudentId(int studentId);
         List<Student> GetStudentsByClassId(int classId);
+
+        List<Quiz> GetQuizzesByClassId(int classId);
     }
 }

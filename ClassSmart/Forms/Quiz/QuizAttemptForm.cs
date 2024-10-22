@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassSmart.Forms.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace ClassSmart.Forms
 {
     public partial class QuizAttemptForm : Form
     {
-        public QuizAttemptForm()
+        public QuizAttemptForm(Models.Quiz quiz, ClassViewQuizzesForm classViewQuizzesForm)
         {
             InitializeComponent();
         }

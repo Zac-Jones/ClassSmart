@@ -1,4 +1,5 @@
-﻿using ClassSmart.Data.Repositories;
+﻿using ClassSmart.Forms.Class;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Model;
 using ClassSmart.Models;
@@ -37,10 +38,10 @@ namespace ClassSmart.Forms.Main
             ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
 
             UserService userService = new UserService(userRepository, classRepository);
-            List<Class> classes = userService.GetClassesForStudent(student);
+            List<Models.Class> classes = userService.GetClassesForStudent(student);
             int i = 50;
 
-            foreach (Class c in classes)
+            foreach (Models.Class c in classes)
             {
                 //Generate a new button
                 Button newButton = new Button();
@@ -48,7 +49,8 @@ namespace ClassSmart.Forms.Main
                 var size = new Size(100,50);
                 newButton.Size = size; // Set the size of the button
                 newButton.Location = new System.Drawing.Point((Width/2) - (size.Width/2), i); // Set the location on the form
-                newButton.Click += new EventHandler(NewButton_Click);
+                //newButton.Click += new EventHandler(NewButton_Click);
+                newButton.Click += (sender, e) => NewButton_Click(sender, e, c);
                 newButton.BringToFront();
                 Controls.Add(newButton);
                 
@@ -56,9 +58,11 @@ namespace ClassSmart.Forms.Main
             }
         }
 
-        private void NewButton_Click(object sender, EventArgs e)
+        private void NewButton_Click(object sender, EventArgs e, Models.Class c)
         {
-            
+            ClassViewQuizzesForm classViewQuizzesForm = new ClassViewQuizzesForm(c, this);
+            classViewQuizzesForm.Show();
+            Hide();
         }
     }
 }
