@@ -61,7 +61,7 @@ namespace ClassSmart.Forms.Main
 
         private void NewButton_Click(object sender, EventArgs e, Models.Class c)
         {
-            ClassViewQuizzesForm classViewQuizzesForm = new ClassViewQuizzesForm(c, this);
+            ClassViewQuizzesForm classViewQuizzesForm = new ClassViewQuizzesForm(c, this, studentDashboardForm);
             classViewQuizzesForm.Show();
             Hide();
         }

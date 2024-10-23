@@ -23,16 +23,18 @@ namespace ClassSmart.Utilities
             var teacher = userService.InsertTeacher("Test Teacher", "test@teacher.com", "password");
             var student = userService.InsertStudent("John Doe", "john@doe.com", "password");
 
-            List<Answer> answerList = new List<Answer>();
-            answerList.Add(new Answer { Text = "Answer 1", IsCorrect = true });
-            answerList.Add(new Answer { Text = "Answer 2", IsCorrect = false });
-            answerList.Add(new Answer { Text = "Answer 3", IsCorrect = false });
-            answerList.Add(new Answer { Text = "Answer 4", IsCorrect = false });
-
-            var quiz = new Quiz
+            if (quizService.GetQuizzesByTeacher(teacher).Count() == 0)
             {
-                Name = "Test Quiz",
-                Questions = new List<Question>
+                List<Answer> answerList = new List<Answer>();
+                answerList.Add(new Answer { Text = "Answer 1", IsCorrect = true });
+                answerList.Add(new Answer { Text = "Answer 2", IsCorrect = false });
+                answerList.Add(new Answer { Text = "Answer 3", IsCorrect = false });
+                answerList.Add(new Answer { Text = "Answer 4", IsCorrect = false });
+
+                var quiz = new Quiz
+                {
+                    Name = "Test Quiz",
+                    Questions = new List<Question>
                 {
                     new Question
                     {
@@ -41,9 +43,10 @@ namespace ClassSmart.Utilities
                         Type = Enums.QuestionType.MultipleChoice
                     }
                 }
-            };
+                };
 
-            quizService.CreateQuizForTeacher(teacher, quiz);
+                quizService.CreateQuizForTeacher(teacher, quiz);
+            }
 
             userService.AssignClassToTeacherAndStudent(teacher, student);
 
