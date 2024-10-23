@@ -46,11 +46,11 @@ namespace ClassSmart.Utilities
                 };
 
                 quizService.CreateQuizForTeacher(teacher, quiz);
+
+                userService.AssignClassToTeacherAndStudent(teacher, student);
+
+                dbContext.SaveChanges();
             }
-
-            userService.AssignClassToTeacherAndStudent(teacher, student);
-
-            dbContext.SaveChanges();
         }
     }
 }

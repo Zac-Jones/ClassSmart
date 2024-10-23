@@ -1,4 +1,5 @@
-﻿using ClassSmart.Data.Repositories;
+﻿using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
 using System;
@@ -83,9 +84,28 @@ namespace ClassSmart.Services
                     Students = new List<Student> { student }
                 };
 
+                if (!student.Classes.Contains(newClass))
+                {
+                    student.Classes.Add(newClass);
+                }
+
                 _classRepository.AddClass(newClass);
             }
+            else
+            {
+                if (!existingClass.Students.Contains(student))
+                {
+                    existingClass.Students.Add(student);
+                }
+
+                if (!student.Classes.Contains(existingClass))
+                {
+                    student.Classes.Add(existingClass);
+                }
+            }
         }
+
+
 
         public List<Class> GetClassesForStudent(Student student)
         {

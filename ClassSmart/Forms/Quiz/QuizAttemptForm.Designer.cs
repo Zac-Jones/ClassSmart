@@ -81,7 +81,7 @@ namespace ClassSmart.Forms
             questionBackground.Font = new Font("Segoe UI", 12F);
             questionBackground.Location = new Point(63, 96);
             questionBackground.Name = "questionBackground";
-            questionBackground.Size = new Size(459, 130);
+            questionBackground.Size = new Size(459, 214);
             questionBackground.TabIndex = 31;
             // 
             // questionLabel
@@ -148,7 +148,7 @@ namespace ClassSmart.Forms
             // 
             // submitQuizBtn
             // 
-            submitQuizBtn.Location = new Point(421, 248);
+            submitQuizBtn.Location = new Point(421, 331);
             submitQuizBtn.Name = "submitQuizBtn";
             submitQuizBtn.Size = new Size(95, 23);
             submitQuizBtn.TabIndex = 64;
@@ -159,7 +159,7 @@ namespace ClassSmart.Forms
             // backQuestionBtn
             // 
             backQuestionBtn.Enabled = false;
-            backQuestionBtn.Location = new Point(304, 248);
+            backQuestionBtn.Location = new Point(304, 331);
             backQuestionBtn.Name = "backQuestionBtn";
             backQuestionBtn.Size = new Size(95, 23);
             backQuestionBtn.TabIndex = 63;
@@ -169,7 +169,7 @@ namespace ClassSmart.Forms
             // 
             // nextQuestionBtn
             // 
-            nextQuestionBtn.Location = new Point(186, 248);
+            nextQuestionBtn.Location = new Point(186, 331);
             nextQuestionBtn.Name = "nextQuestionBtn";
             nextQuestionBtn.Size = new Size(95, 23);
             nextQuestionBtn.TabIndex = 62;
@@ -179,7 +179,7 @@ namespace ClassSmart.Forms
             // 
             // homeBtn
             // 
-            homeBtn.Location = new Point(68, 248);
+            homeBtn.Location = new Point(68, 331);
             homeBtn.Name = "homeBtn";
             homeBtn.Size = new Size(95, 23);
             homeBtn.TabIndex = 61;
@@ -264,7 +264,7 @@ namespace ClassSmart.Forms
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(584, 290);
+            ClientSize = new Size(584, 374);
             Controls.Add(radioButton2);
             Controls.Add(radioButton1);
             Controls.Add(checkBox4);

@@ -86,6 +86,11 @@ namespace ClassSmart.Forms.TeacherSpecific
                 homeCancelBtn.Text = "Home";
                 editSaveBtn.Text = "Edit";
             }
+
+            if (_questions != null && _questions.Count == 1)
+            {
+                nextQuestionBtn.Enabled = false;
+            }
         }
 
         private void QuizViewForm_FormClosing(object sender, FormClosingEventArgs e)
