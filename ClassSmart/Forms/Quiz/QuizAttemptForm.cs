@@ -16,5 +16,10 @@ namespace ClassSmart.Forms
         {
             InitializeComponent();
         }
+
+        private void QuizAttemptForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

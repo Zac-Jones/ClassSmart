@@ -1,4 +1,6 @@
-﻿using ClassSmart.Model;
+﻿using ClassSmart.Forms.TeacherSpecific;
+using ClassSmart.Model;
+using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassSmart.Forms.Main;
 using System.Windows.Forms;
 
 namespace ClassSmart.Forms
@@ -35,6 +38,9 @@ namespace ClassSmart.Forms
 
         private void viewUpcomingQuizzesBtn_Click(object sender, EventArgs e)
         {
+            AnalyticsForm form1 = new (student);
+            form1.Show();
+            Hide();
 
         }
 
@@ -43,6 +49,11 @@ namespace ClassSmart.Forms
             loginForm.Show();
             Hide();
             Dispose();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

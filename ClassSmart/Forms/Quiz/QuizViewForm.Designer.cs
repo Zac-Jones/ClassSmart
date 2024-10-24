@@ -66,18 +66,20 @@ namespace ClassSmart.Forms.TeacherSpecific
             label1.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(592, 75);
+            label1.Size = new Size(677, 100);
             label1.TabIndex = 11;
             label1.Text = "View Quizzes";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // comboBox1
             // 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 99);
+            comboBox1.Location = new Point(14, 132);
+            comboBox1.Margin = new Padding(3, 4, 3, 4);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(467, 23);
+            comboBox1.Size = new Size(533, 28);
             comboBox1.TabIndex = 17;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -85,17 +87,18 @@ namespace ClassSmart.Forms.TeacherSpecific
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(12, 75);
+            label2.Location = new Point(14, 100);
             label2.Name = "label2";
-            label2.Size = new Size(42, 21);
+            label2.Size = new Size(52, 28);
             label2.TabIndex = 18;
             label2.Text = "Quiz";
             // 
             // homeCancelBtn
             // 
-            homeCancelBtn.Location = new Point(130, 311);
+            homeCancelBtn.Location = new Point(149, 415);
+            homeCancelBtn.Margin = new Padding(3, 4, 3, 4);
             homeCancelBtn.Name = "homeCancelBtn";
-            homeCancelBtn.Size = new Size(95, 23);
+            homeCancelBtn.Size = new Size(109, 31);
             homeCancelBtn.TabIndex = 19;
             homeCancelBtn.Text = "Home";
             homeCancelBtn.UseVisualStyleBackColor = true;
@@ -103,9 +106,10 @@ namespace ClassSmart.Forms.TeacherSpecific
             // 
             // editSaveBtn
             // 
-            editSaveBtn.Location = new Point(11, 311);
+            editSaveBtn.Location = new Point(13, 415);
+            editSaveBtn.Margin = new Padding(3, 4, 3, 4);
             editSaveBtn.Name = "editSaveBtn";
-            editSaveBtn.Size = new Size(95, 23);
+            editSaveBtn.Size = new Size(109, 31);
             editSaveBtn.TabIndex = 20;
             editSaveBtn.Text = "Edit";
             editSaveBtn.UseVisualStyleBackColor = true;
@@ -115,9 +119,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(12, 125);
+            label3.Location = new Point(14, 167);
             label3.Name = "label3";
-            label3.Size = new Size(0, 21);
+            label3.Size = new Size(0, 28);
             label3.TabIndex = 21;
             // 
             // questionNumberLabel
@@ -125,9 +129,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             questionNumberLabel.AutoSize = true;
             questionNumberLabel.BackColor = SystemColors.Control;
             questionNumberLabel.Font = new Font("Segoe UI", 12F);
-            questionNumberLabel.Location = new Point(12, 147);
+            questionNumberLabel.Location = new Point(14, 196);
             questionNumberLabel.Name = "questionNumberLabel";
-            questionNumberLabel.Size = new Size(86, 21);
+            questionNumberLabel.Size = new Size(108, 28);
             questionNumberLabel.TabIndex = 22;
             questionNumberLabel.Text = "Question #";
             // 
@@ -136,9 +140,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             questionBackground.BackColor = SystemColors.ControlLight;
             questionBackground.BorderStyle = BorderStyle.FixedSingle;
             questionBackground.Font = new Font("Segoe UI", 12F);
-            questionBackground.Location = new Point(12, 168);
+            questionBackground.Location = new Point(14, 224);
             questionBackground.Name = "questionBackground";
-            questionBackground.Size = new Size(568, 120);
+            questionBackground.Size = new Size(649, 159);
             questionBackground.TabIndex = 23;
             // 
             // label6
@@ -146,9 +150,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             label6.AutoSize = true;
             label6.BackColor = SystemColors.ControlLight;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(13, 168);
+            label6.Location = new Point(15, 224);
             label6.Name = "label6";
-            label6.Size = new Size(0, 21);
+            label6.Size = new Size(0, 28);
             label6.TabIndex = 24;
             // 
             // questionLabel
@@ -156,9 +160,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             questionLabel.AutoSize = true;
             questionLabel.BackColor = SystemColors.ControlLight;
             questionLabel.Font = new Font("Segoe UI", 12F);
-            questionLabel.Location = new Point(19, 175);
+            questionLabel.Location = new Point(22, 233);
             questionLabel.Name = "questionLabel";
-            questionLabel.Size = new Size(0, 21);
+            questionLabel.Size = new Size(0, 28);
             questionLabel.TabIndex = 25;
             // 
             // multipleChoiceAnswer2
@@ -199,17 +203,18 @@ namespace ClassSmart.Forms.TeacherSpecific
             correctAnswerLabel.AutoSize = true;
             correctAnswerLabel.BackColor = SystemColors.ControlLight;
             correctAnswerLabel.Font = new Font("Segoe UI", 12F);
-            correctAnswerLabel.Location = new Point(366, 175);
+            correctAnswerLabel.Location = new Point(418, 233);
             correctAnswerLabel.Name = "correctAnswerLabel";
-            correctAnswerLabel.Size = new Size(134, 21);
+            correctAnswerLabel.Size = new Size(164, 28);
             correctAnswerLabel.TabIndex = 34;
             correctAnswerLabel.Text = "Correct Answer(s)";
             // 
             // nextQuestionBtn
             // 
-            nextQuestionBtn.Location = new Point(248, 311);
+            nextQuestionBtn.Location = new Point(283, 415);
+            nextQuestionBtn.Margin = new Padding(3, 4, 3, 4);
             nextQuestionBtn.Name = "nextQuestionBtn";
-            nextQuestionBtn.Size = new Size(95, 23);
+            nextQuestionBtn.Size = new Size(109, 31);
             nextQuestionBtn.TabIndex = 35;
             nextQuestionBtn.Text = "Next";
             nextQuestionBtn.UseVisualStyleBackColor = true;
@@ -258,9 +263,10 @@ namespace ClassSmart.Forms.TeacherSpecific
             // backQuestionBtn
             // 
             backQuestionBtn.Enabled = false;
-            backQuestionBtn.Location = new Point(366, 311);
+            backQuestionBtn.Location = new Point(418, 415);
+            backQuestionBtn.Margin = new Padding(3, 4, 3, 4);
             backQuestionBtn.Name = "backQuestionBtn";
-            backQuestionBtn.Size = new Size(95, 23);
+            backQuestionBtn.Size = new Size(109, 31);
             backQuestionBtn.TabIndex = 40;
             backQuestionBtn.Text = "Previous";
             backQuestionBtn.UseVisualStyleBackColor = true;
@@ -324,9 +330,10 @@ namespace ClassSmart.Forms.TeacherSpecific
             // deleteQuizBtn
             // 
             deleteQuizBtn.Enabled = false;
-            deleteQuizBtn.Location = new Point(485, 98);
+            deleteQuizBtn.Location = new Point(554, 131);
+            deleteQuizBtn.Margin = new Padding(3, 4, 3, 4);
             deleteQuizBtn.Name = "deleteQuizBtn";
-            deleteQuizBtn.Size = new Size(95, 23);
+            deleteQuizBtn.Size = new Size(109, 31);
             deleteQuizBtn.TabIndex = 41;
             deleteQuizBtn.Text = "Delete Quiz";
             deleteQuizBtn.UseVisualStyleBackColor = true;
@@ -334,9 +341,9 @@ namespace ClassSmart.Forms.TeacherSpecific
             // 
             // QuizViewForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(592, 346);
+            ClientSize = new Size(677, 461);
             Controls.Add(deleteQuizBtn);
             Controls.Add(backQuestionBtn);
             Controls.Add(nextQuestionBtn);
@@ -351,6 +358,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             Controls.Add(comboBox1);
             Controls.Add(label1);
             Controls.Add(questionBackground);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "QuizViewForm";
             StartPosition = FormStartPosition.CenterScreen;

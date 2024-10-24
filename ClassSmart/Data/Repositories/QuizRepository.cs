@@ -55,5 +55,15 @@ namespace ClassSmart.Data.Repositories
             _context.Quizzes.Update(quiz);
             _context.SaveChanges();
         }
+
+        public List<Quiz> GetQuizzesByStudent(Student student)
+        {
+            return _context.Classes
+                .Where(c => c.Students.Any(s => s.Id == student.Id))
+                .Where(c => c.Students.Any(s => s.Id == student.Id))
+                .SelectMany(c => c.Quizzes)
+                .ToList();
+        }
+
     }
 }

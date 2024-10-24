@@ -15,5 +15,7 @@ namespace ClassSmart.Data.Repositories
         List<Quiz> GetQuizzesByTeacher(Teacher teacher);
         void DeleteQuiz(int quizId);
         void UpdateQuiz(Quiz quiz);
+        List<Quiz> GetQuizzesByStudent(Student student);
+
     }
 }

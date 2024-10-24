@@ -54,36 +54,38 @@ namespace ClassSmart.Forms
             label1.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(284, 50);
+            label1.Size = new Size(322, 67);
             label1.TabIndex = 11;
             label1.Text = "Quiz Creator";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(12, 50);
+            label2.Location = new Point(14, 67);
             label2.Name = "label2";
-            label2.Size = new Size(88, 21);
+            label2.Size = new Size(109, 28);
             label2.TabIndex = 12;
             label2.Text = "Quiz Name";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(12, 74);
+            textBox1.Location = new Point(14, 99);
+            textBox1.Margin = new Padding(3, 4, 3, 4);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Name";
-            textBox1.Size = new Size(260, 23);
+            textBox1.Size = new Size(297, 27);
             textBox1.TabIndex = 13;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(12, 115);
+            label4.Location = new Point(14, 153);
             label4.Name = "label4";
-            label4.Size = new Size(84, 21);
+            label4.Size = new Size(106, 28);
             label4.TabIndex = 16;
             label4.Text = "Open Date";
             // 
@@ -91,65 +93,70 @@ namespace ClassSmart.Forms
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(12, 180);
+            label5.Location = new Point(14, 240);
             label5.Name = "label5";
-            label5.Size = new Size(84, 21);
+            label5.Size = new Size(105, 28);
             label5.TabIndex = 18;
             label5.Text = "Close Date";
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(12, 139);
+            dateTimePicker1.Location = new Point(14, 185);
+            dateTimePicker1.Margin = new Padding(3, 4, 3, 4);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(260, 23);
+            dateTimePicker1.Size = new Size(297, 27);
             dateTimePicker1.TabIndex = 21;
             // 
             // dateTimePicker2
             // 
-            dateTimePicker2.Location = new Point(12, 204);
+            dateTimePicker2.Location = new Point(14, 272);
+            dateTimePicker2.Margin = new Padding(3, 4, 3, 4);
             dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(260, 23);
+            dateTimePicker2.Size = new Size(297, 27);
             dateTimePicker2.TabIndex = 22;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(12, 245);
+            label6.Location = new Point(14, 327);
             label6.Name = "label6";
-            label6.Size = new Size(126, 21);
+            label6.Size = new Size(158, 28);
             label6.TabIndex = 26;
             label6.Text = "No. of Questions";
             // 
             // numericUpDown2
             // 
-            numericUpDown2.Location = new Point(12, 269);
+            numericUpDown2.Location = new Point(14, 359);
+            numericUpDown2.Margin = new Padding(3, 4, 3, 4);
             numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(260, 23);
+            numericUpDown2.Size = new Size(297, 27);
             numericUpDown2.TabIndex = 25;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(12, 310);
+            label7.Location = new Point(14, 413);
             label7.Name = "label7";
-            label7.Size = new Size(95, 21);
+            label7.Size = new Size(122, 28);
             label7.TabIndex = 30;
             label7.Text = "Total Weight";
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new Point(12, 334);
+            numericUpDown3.Location = new Point(14, 445);
+            numericUpDown3.Margin = new Padding(3, 4, 3, 4);
             numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(260, 23);
+            numericUpDown3.Size = new Size(297, 27);
             numericUpDown3.TabIndex = 29;
             // 
             // addQuestionsBtn
             // 
-            addQuestionsBtn.Location = new Point(94, 376);
+            addQuestionsBtn.Location = new Point(107, 501);
+            addQuestionsBtn.Margin = new Padding(3, 4, 3, 4);
             addQuestionsBtn.Name = "addQuestionsBtn";
-            addQuestionsBtn.Size = new Size(97, 23);
+            addQuestionsBtn.Size = new Size(111, 31);
             addQuestionsBtn.TabIndex = 32;
             addQuestionsBtn.Text = "Add Questions";
             addQuestionsBtn.UseVisualStyleBackColor = true;
@@ -157,9 +164,10 @@ namespace ClassSmart.Forms
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(94, 407);
+            cancelBtn.Location = new Point(107, 543);
+            cancelBtn.Margin = new Padding(3, 4, 3, 4);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(97, 23);
+            cancelBtn.Size = new Size(111, 31);
             cancelBtn.TabIndex = 33;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = true;
@@ -169,17 +177,17 @@ namespace ClassSmart.Forms
             // 
             errorLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             errorLabel.ForeColor = Color.Red;
-            errorLabel.Location = new Point(12, 444);
+            errorLabel.Location = new Point(14, 592);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(260, 23);
+            errorLabel.Size = new Size(297, 31);
             errorLabel.TabIndex = 34;
             errorLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // QuizCreateMainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(284, 491);
+            ClientSize = new Size(322, 644);
             Controls.Add(errorLabel);
             Controls.Add(cancelBtn);
             Controls.Add(addQuestionsBtn);
@@ -194,9 +202,10 @@ namespace ClassSmart.Forms
             Controls.Add(textBox1);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(300, 530);
-            MinimumSize = new Size(300, 530);
+            MaximumSize = new Size(340, 691);
+            MinimumSize = new Size(340, 691);
             Name = "QuizCreateMainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
