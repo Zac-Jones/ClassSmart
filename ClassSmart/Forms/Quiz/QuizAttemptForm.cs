@@ -282,6 +282,11 @@ namespace ClassSmart.Forms
                     questionAttempt.AnswerIndexes.Add(3);
                     score += correctAnswerIndexes.Contains(3) ? correctAnswerValue : -correctAnswerValue;
                 }
+
+                if (score < 0)
+                {
+                    score = 0;
+                }
             }
             else
             {
