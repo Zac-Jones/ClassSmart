@@ -12,6 +12,7 @@ using ClassSmart.Data;
 using ClassSmart.Model;
 using ClassSmart.Services;
 using ClassSmart.Models;
+using Microsoft.Identity.Client;
 
 namespace ClassSmart.Forms.Class
 {
@@ -54,6 +55,21 @@ namespace ClassSmart.Forms.Class
                     newButton.BringToFront();
                     Controls.Add(newButton);
 
+                    // Check if quiz start date hasn't happened yet
+                    if (DateTime.Now < q.StartTime)
+                    {
+                        newButton.Enabled = false; // Disable button for future quizzes
+                    }
+                    else
+                    {
+                        // Check if user has already taken the quiz (implementation depends on your logic)
+                        bool hasTakenQuiz = CheckIfUserHasTakenQuiz(student.Id, q.Id);
+                        if (hasTakenQuiz)
+                        {
+                            newButton.Enabled = false; // Disable button for taken quizzes
+                        }
+                    }
+
                     // Generate a new label for start and end dates
                     Label dateLabel = new Label();
                     dateLabel.Text = $"Start: {q.StartTime.ToShortDateString()} End: {q.EndTime.ToShortDateString()}";
@@ -65,6 +81,23 @@ namespace ClassSmart.Forms.Class
                     i += 70; // Adjust position for the next button and label
                 }
             }
+
+            
+        }
+
+        private bool CheckIfUserHasTakenQuiz(long studentID, long quizId)
+        {
+            AttemptRepository attemptRepository = new AttemptRepository(new ApplicationDBContext());
+            AttemptService attemptService = new AttemptService(attemptRepository);
+            List<QuizAttempt> quizAttempts = attemptService.GetQuizzAttemptForStudent(studentID);
+            foreach(Models.QuizAttempt q in quizAttempts)
+            {
+                if(q.QuizId == quizId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void NewButton_Click(object sender, EventArgs e, Models.Quiz q)

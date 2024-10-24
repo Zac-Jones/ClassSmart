@@ -21,5 +21,10 @@ namespace ClassSmart.Data.Repositories
             _context.QuizAttempts.Add(quizAttempt);
             _context.SaveChanges();
         }
+
+        public List<QuizAttempt> GetQuizAttempts(long studentId)
+        {
+            return _context.QuizAttempts.Where(q => q.StudentId == studentId).ToList(); ;
+        }
     }
 }

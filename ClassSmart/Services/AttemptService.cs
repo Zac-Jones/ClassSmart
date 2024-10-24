@@ -1,4 +1,5 @@
 ﻿using ClassSmart.Data.Repositories;
+using ClassSmart.Model;
 using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,11 @@ namespace ClassSmart.Services
         public void AddQuizAttempt(QuizAttempt quizAttempt)
         {
             _attemptRepository.AddQuizAttempt(quizAttempt);
+        }
+
+        public List<QuizAttempt> GetQuizzAttemptForStudent(long studentId)
+        {
+            return _attemptRepository.GetQuizAttempts(studentId);
         }
     }
 }
