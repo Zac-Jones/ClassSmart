@@ -1,4 +1,5 @@
-﻿using ClassSmart.Models;
+﻿using ClassSmart.Model;
+using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,9 @@ namespace ClassSmart.Data.Repositories
     {
         Class GetClassByTeacherId(int teacherId);
         void AddClass(Class newClass);
+        List<Class> GetClassesByStudentId(int studentId);
+        List<Student> GetStudentsByClassId(int classId);
+
+        List<Quiz> GetQuizzesByClassId(int classId);
     }
 }

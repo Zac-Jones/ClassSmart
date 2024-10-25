@@ -1,4 +1,5 @@
-﻿using ClassSmart.Data.Repositories;
+﻿using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
 using System;
@@ -70,7 +71,7 @@ namespace ClassSmart.Services
             return existingStudent;
         }
 
-        public void AssignClassToTeacher(Teacher teacher, Student student)
+        public void AssignClassToTeacherAndStudent(Teacher teacher, Student student)
         {
             var existingClass = _classRepository.GetClassByTeacherId(teacher.Id);
 
@@ -83,8 +84,42 @@ namespace ClassSmart.Services
                     Students = new List<Student> { student }
                 };
 
+                if (!student.Classes.Contains(newClass))
+                {
+                    student.Classes.Add(newClass);
+                }
+
                 _classRepository.AddClass(newClass);
             }
+            else
+            {
+                if (!existingClass.Students.Contains(student))
+                {
+                    existingClass.Students.Add(student);
+                }
+
+                if (!student.Classes.Contains(existingClass))
+                {
+                    student.Classes.Add(existingClass);
+                }
+            }
+        }
+
+
+
+        public List<Class> GetClassesForStudent(Student student)
+        {
+            return _classRepository.GetClassesByStudentId(student.Id);
+        }
+
+        public List<Student> GetStudentsForClass(Class _class)
+        {
+            return _classRepository.GetStudentsByClassId(_class.Id);
+        }
+
+        public List<Quiz> GetQuizzesForClass(Class _class)
+        {
+            return _classRepository.GetQuizzesByClassId(_class.Id);
         }
     }
 }

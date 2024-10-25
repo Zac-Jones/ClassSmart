@@ -37,8 +37,7 @@ namespace ClassSmart.Forms
         private void viewClassBtn_Click(object sender, EventArgs e)
         {
 
-            Class teacherClass = teacher.Class;
-            ClassDetailsForm classDetailsForm = new ClassDetailsForm(teacherClass, this);
+            TeacherClassDetailsForm classDetailsForm = new TeacherClassDetailsForm(teacher, this);
             classDetailsForm.Show();
             Hide();
         }

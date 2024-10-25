@@ -1,6 +1,6 @@
-﻿using ClassSmart.Forms.TeacherSpecific;
+﻿using ClassSmart.Forms.Main;
+using ClassSmart.Forms.Class;
 using ClassSmart.Model;
-using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,15 +33,16 @@ namespace ClassSmart.Forms
 
         private void viewClassesBtn_Click(object sender, EventArgs e)
         {
-
+            StudentClassDetailsForm studentClassDetailsForm = new StudentClassDetailsForm(student, this);
+            studentClassDetailsForm.Show();
+            Hide();
         }
 
         private void viewUpcomingQuizzesBtn_Click(object sender, EventArgs e)
         {
-            AnalyticsForm form1 = new (student);
-            form1.Show();
+            ViewUpcomingQuizzesForm viewUpcomingQuizzesForm = new ViewUpcomingQuizzesForm(student, this);
+            viewUpcomingQuizzesForm.Show();
             Hide();
-
         }
 
         private void logoutBtn_Click(object sender, EventArgs e)

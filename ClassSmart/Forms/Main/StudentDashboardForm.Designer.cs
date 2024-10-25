@@ -104,7 +104,7 @@ namespace ClassSmart.Forms
         }
 
         #endregion
-        private Student student;
+        public Student student;
         private LoginForm loginForm;
         private Button logoutBtn;
         private Button viewUpcomingQuizzesBtn;
