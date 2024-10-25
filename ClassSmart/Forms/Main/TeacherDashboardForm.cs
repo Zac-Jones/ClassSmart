@@ -44,7 +44,10 @@ namespace ClassSmart.Forms
 
         private void viewAnalyticsBtn_Click(object sender, EventArgs e)
         {
-            
+            TeacherAnalyticsForm teacherAnalyticsForm = new TeacherAnalyticsForm(teacher, this);
+            teacherAnalyticsForm.Show();
+            Hide();
+
         }
 
         private void viewQuizzesBtn_Click(object sender, EventArgs e)
