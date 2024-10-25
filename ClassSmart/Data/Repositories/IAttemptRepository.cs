@@ -11,6 +11,7 @@ namespace ClassSmart.Data.Repositories
     {
         void AddQuizAttempt(QuizAttempt quizAttempt);
         List<QuizAttempt> GetQuizAttempts(long studentId);
+        List<long> GetStudentIdsInQuiz(long quizId);
     }
 
    

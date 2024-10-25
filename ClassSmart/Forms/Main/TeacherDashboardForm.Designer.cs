@@ -44,17 +44,19 @@ namespace ClassSmart.Forms
             label1.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(804, 109);
+            label1.Size = new Size(917, 145);
             label1.TabIndex = 1;
             label1.Text = "SampleHeader";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // viewClassBtn
             // 
             viewClassBtn.Cursor = Cursors.Hand;
-            viewClassBtn.Location = new Point(142, 112);
+            viewClassBtn.Location = new Point(162, 149);
+            viewClassBtn.Margin = new Padding(3, 4, 3, 4);
             viewClassBtn.Name = "viewClassBtn";
-            viewClassBtn.Size = new Size(240, 60);
+            viewClassBtn.Size = new Size(274, 80);
             viewClassBtn.TabIndex = 2;
             viewClassBtn.Text = "View Class";
             viewClassBtn.UseVisualStyleBackColor = true;
@@ -63,9 +65,10 @@ namespace ClassSmart.Forms
             // viewQuizzesBtn
             // 
             viewQuizzesBtn.Cursor = Cursors.Hand;
-            viewQuizzesBtn.Location = new Point(142, 212);
+            viewQuizzesBtn.Location = new Point(162, 283);
+            viewQuizzesBtn.Margin = new Padding(3, 4, 3, 4);
             viewQuizzesBtn.Name = "viewQuizzesBtn";
-            viewQuizzesBtn.Size = new Size(240, 60);
+            viewQuizzesBtn.Size = new Size(274, 80);
             viewQuizzesBtn.TabIndex = 3;
             viewQuizzesBtn.Text = "View Quizzes";
             viewQuizzesBtn.UseVisualStyleBackColor = true;
@@ -74,9 +77,10 @@ namespace ClassSmart.Forms
             // createQuizBtn
             // 
             createQuizBtn.Cursor = Cursors.Hand;
-            createQuizBtn.Location = new Point(422, 212);
+            createQuizBtn.Location = new Point(482, 283);
+            createQuizBtn.Margin = new Padding(3, 4, 3, 4);
             createQuizBtn.Name = "createQuizBtn";
-            createQuizBtn.Size = new Size(240, 60);
+            createQuizBtn.Size = new Size(274, 80);
             createQuizBtn.TabIndex = 4;
             createQuizBtn.Text = "Create Quiz";
             createQuizBtn.UseVisualStyleBackColor = true;
@@ -85,9 +89,10 @@ namespace ClassSmart.Forms
             // viewAnalyticsBtn
             // 
             viewAnalyticsBtn.Cursor = Cursors.Hand;
-            viewAnalyticsBtn.Location = new Point(422, 112);
+            viewAnalyticsBtn.Location = new Point(482, 149);
+            viewAnalyticsBtn.Margin = new Padding(3, 4, 3, 4);
             viewAnalyticsBtn.Name = "viewAnalyticsBtn";
-            viewAnalyticsBtn.Size = new Size(240, 60);
+            viewAnalyticsBtn.Size = new Size(274, 80);
             viewAnalyticsBtn.TabIndex = 5;
             viewAnalyticsBtn.Text = "View Analytics";
             viewAnalyticsBtn.UseVisualStyleBackColor = true;
@@ -96,9 +101,10 @@ namespace ClassSmart.Forms
             // logoutBtn
             // 
             logoutBtn.Cursor = Cursors.Hand;
-            logoutBtn.Location = new Point(282, 312);
+            logoutBtn.Location = new Point(322, 416);
+            logoutBtn.Margin = new Padding(3, 4, 3, 4);
             logoutBtn.Name = "logoutBtn";
-            logoutBtn.Size = new Size(240, 60);
+            logoutBtn.Size = new Size(274, 80);
             logoutBtn.TabIndex = 6;
             logoutBtn.Text = "Logout";
             logoutBtn.UseVisualStyleBackColor = true;
@@ -106,21 +112,23 @@ namespace ClassSmart.Forms
             // 
             // TeacherDashboardForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(804, 451);
+            ClientSize = new Size(917, 591);
             Controls.Add(logoutBtn);
             Controls.Add(viewAnalyticsBtn);
             Controls.Add(createQuizBtn);
             Controls.Add(viewQuizzesBtn);
             Controls.Add(viewClassBtn);
             Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(820, 490);
-            MinimumSize = new Size(820, 490);
+            MaximumSize = new Size(935, 638);
+            MinimumSize = new Size(935, 638);
             Name = "TeacherDashboardForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
+            Load += TeacherDashboardForm_Load;
             ResumeLayout(false);
         }
 

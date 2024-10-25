@@ -346,5 +346,10 @@ namespace ClassSmart.Forms
             Dispose();
             studentDashboardForm.Show();
         }
+
+        private void QuizAttemptForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

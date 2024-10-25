@@ -38,27 +38,28 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(365, 51);
+            label1.Location = new Point(417, 68);
             label1.Name = "label1";
-            label1.Size = new Size(0, 15);
+            label1.Size = new Size(0, 20);
             label1.TabIndex = 0;
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(332, 104);
+            label2.Location = new Point(379, 139);
             label2.Name = "label2";
-            label2.Size = new Size(136, 15);
+            label2.Size = new Size(170, 20);
             label2.TabIndex = 1;
             label2.Text = "(Class Information Here)";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(13, 425);
+            cancelBtn.Location = new Point(15, 567);
+            cancelBtn.Margin = new Padding(3, 4, 3, 4);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(75, 23);
+            cancelBtn.Size = new Size(86, 31);
             cancelBtn.TabIndex = 2;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = true;
@@ -70,33 +71,36 @@
             label3.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(800, 50);
+            label3.Size = new Size(914, 67);
             label3.TabIndex = 12;
             label3.Text = "Teacher Class Details";
             label3.TextAlign = ContentAlignment.MiddleCenter;
+            label3.Click += label3_Click;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(332, 218);
+            label4.Location = new Point(379, 291);
             label4.Name = "label4";
-            label4.Size = new Size(0, 15);
+            label4.Size = new Size(0, 20);
             label4.TabIndex = 13;
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TeacherClassDetailsForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(cancelBtn);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "TeacherClassDetailsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TeacherClassDetailsForm";
+            Load += TeacherClassDetailsForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

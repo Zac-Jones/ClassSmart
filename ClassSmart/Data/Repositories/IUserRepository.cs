@@ -13,6 +13,8 @@ namespace ClassSmart.Data.Repositories
         Student GetStudentByCredentials(string email, string password);
         Teacher GetTeacherByEmail(string email);
         Student GetStudentByEmail(string email);
+
+        Student GetStudentFromId(long id);
         void UpdateTeacher(Teacher teacher);
         void AddTeacher(Teacher teacher);
         void AddStudent(Student student);

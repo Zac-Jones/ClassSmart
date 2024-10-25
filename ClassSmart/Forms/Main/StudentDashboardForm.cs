@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassSmart.Forms.Main;
 using System.Windows.Forms;
 
 namespace ClassSmart.Forms
@@ -49,6 +50,23 @@ namespace ClassSmart.Forms
             loginForm.Show();
             Hide();
             Dispose();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StudentDashboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            StudentAnalyticsForm studentAnalyticsForm = new StudentAnalyticsForm(student, this);
+            studentAnalyticsForm.Show();
+            Hide();
         }
     }
 }

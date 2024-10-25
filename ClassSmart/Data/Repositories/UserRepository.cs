@@ -55,5 +55,10 @@ namespace ClassSmart.Data.Repositories
             _context.Students.Add(student);
             _context.SaveChanges();
         }
+
+        public Student GetStudentFromId(long id)
+        {
+            return _context.Students.FirstOrDefault(s => s.Id == id);
+        }
     }
 }

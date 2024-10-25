@@ -121,5 +121,11 @@ namespace ClassSmart.Services
         {
             return _classRepository.GetQuizzesByClassId(_class.Id);
         }
+
+        public Student GetStudentFromId(long id)
+        {
+            return _userRepository.GetStudentFromId(id);
+
+        }
     }
 }

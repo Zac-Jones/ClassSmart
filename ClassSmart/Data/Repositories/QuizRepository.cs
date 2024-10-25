@@ -32,6 +32,12 @@ namespace ClassSmart.Data.Repositories
                 .FirstOrDefault(q => q.Name == quizName);
         }
 
+        public Quiz getQuizById(int id)
+        {
+            return _context.Quizzes
+                .FirstOrDefault(q => q.Id == id);
+        }
+
         public List<Quiz> GetQuizzesByTeacher(Teacher teacher)
         {
             return _context.Classes
@@ -55,5 +61,14 @@ namespace ClassSmart.Data.Repositories
             _context.Quizzes.Update(quiz);
             _context.SaveChanges();
         }
+
+        public List<Quiz> GetQuizzesByStudent(Student student)
+        {
+            return _context.Classes
+                .Where(c => c.Students.Any(s => s.Id == student.Id))
+                .SelectMany(c => c.Quizzes)
+                .ToList();
+        }
+
     }
 }

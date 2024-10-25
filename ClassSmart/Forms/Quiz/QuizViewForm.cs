@@ -449,7 +449,7 @@ namespace ClassSmart.Forms.TeacherSpecific
                 homeCancelBtn.Text = "Home";
             }
 
-            if (questionIndex < _questions.Count - 1) 
+            if (questionIndex < _questions.Count - 1)
             {
                 questionIndex++;
                 questionNumberLabel.Text = $"Question #{questionIndex + 1}";
@@ -467,7 +467,7 @@ namespace ClassSmart.Forms.TeacherSpecific
             {
                 questionIndex++;
                 questionNumberLabel.Text = $"Question #{questionIndex + 1}";
-                nextQuestionBtn.Enabled = false; 
+                nextQuestionBtn.Enabled = false;
 
                 var lastQuestion = _questions[questionIndex];
                 var answerService = new AnswerService(new AnswerRepository(new ApplicationDBContext()));
@@ -483,7 +483,7 @@ namespace ClassSmart.Forms.TeacherSpecific
         {
             nextQuestionBtn.Enabled = true;
 
-            if (questionIndex > 0) 
+            if (questionIndex > 0)
             {
                 questionIndex--;
                 questionNumberLabel.Text = $"Question #{questionIndex + 1}";
@@ -576,7 +576,8 @@ namespace ClassSmart.Forms.TeacherSpecific
                 {
                     showTrueFalse(_questions[questionIndex]);
                 }
-            } else
+            }
+            else
             {
                 Hide();
                 Dispose();
@@ -620,6 +621,11 @@ namespace ClassSmart.Forms.TeacherSpecific
 
                 comboBox1.DataSource = quizzes.Select(q => q.Name).ToList();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
