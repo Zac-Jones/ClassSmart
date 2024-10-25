@@ -40,6 +40,10 @@
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             button1 = new Button();
+            progressBar1 = new ProgressBar();
+            progressBar2 = new ProgressBar();
+            label1 = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -88,13 +92,12 @@
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.Enabled = false;
-            dataGridView1.Location = new Point(100, 58);
-            dataGridView1.Margin = new Padding(3, 2, 3, 2);
+            dataGridView1.Location = new Point(115, 65);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridView1.Size = new Size(678, 141);
+            dataGridView1.Size = new Size(775, 241);
             dataGridView1.TabIndex = 2;
             // 
             // Column1
@@ -139,29 +142,68 @@
             // 
             // button1
             // 
-            button1.Location = new Point(371, 245);
-            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Location = new Point(415, 569);
             button1.Name = "button1";
-            button1.Size = new Size(136, 56);
+            button1.Size = new Size(155, 75);
             button1.TabIndex = 3;
             button1.Text = "Return";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // progressBar1
+            // 
+            progressBar1.Location = new Point(239, 361);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(518, 65);
+            progressBar1.TabIndex = 4;
+            progressBar1.Click += progressBar1_Click;
+            // 
+            // progressBar2
+            // 
+            progressBar2.Location = new Point(239, 463);
+            progressBar2.Name = "progressBar2";
+            progressBar2.Size = new Size(518, 68);
+            progressBar2.TabIndex = 5;
+            progressBar2.Click += progressBar2_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(433, 440);
+            label1.Name = "label1";
+            label1.Size = new Size(138, 20);
+            label1.TabIndex = 6;
+            label1.Text = "Class Total Average";
+            label1.Click += label1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(447, 338);
+            label2.Name = "label2";
+            label2.Size = new Size(101, 20);
+            label2.TabIndex = 7;
+            label2.Text = "Total Average";
+            label2.Click += label2_Click;
+            // 
             // StudentAnalyticsForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(878, 338);
+            ClientSize = new Size(1003, 768);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(progressBar2);
+            Controls.Add(progressBar1);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "StudentAnalyticsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
             Load += StudentAnalyticsForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -177,5 +219,9 @@
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
         private Button button1;
+        private ProgressBar progressBar1;
+        private ProgressBar progressBar2;
+        private Label label1;
+        private Label label2;
     }
 }

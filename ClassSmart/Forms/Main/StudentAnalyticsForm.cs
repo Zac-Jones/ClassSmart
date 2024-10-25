@@ -19,6 +19,7 @@ namespace ClassSmart.Forms.Main
     {
         private Form returnForm1;
 
+
         public StudentAnalyticsForm(Student student, Form returnForm)
         {
             InitializeComponent();
@@ -45,6 +46,9 @@ namespace ClassSmart.Forms.Main
             ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
             QuizService quizService = new QuizService(classRepository, quizRepository, userRepository);
 
+            List<double> classPercentages = [];
+            List<double> userPercentages = [];
+
             List<QuizAttempt> quizAttempts = attemptService.GetQuizzAttemptForStudent(student.Id);
 
             foreach (var attempt in quizAttempts)
@@ -52,14 +56,20 @@ namespace ClassSmart.Forms.Main
                 var quiz = quizService.GetQuizById(attempt.Id);
                 if (quiz != null)
                 {
-                    string percentageDisplay = GeneratePercentageDisplay(attempt.Score, quiz.TotalPoints);
+                    double userPercentage = GeneratePercentageDisplay(attempt.Score, quiz.TotalPoints);
+
+                    userPercentages.Add(userPercentage);
 
                     var classAverage = GetClassQuizAverage(student.Id, quiz.Id);
-                    var classPercentage = GeneratePercentageDisplay(classAverage, quiz.TotalPoints);
+                    double classPercentage = GeneratePercentageDisplay(classAverage, quiz.TotalPoints);
+                    classPercentages.Add(classPercentage);
 
-                    dataGridView1.Rows.Add(quiz.Name, $"{Math.Round(attempt.Score, 2)}/{quiz.TotalPoints}", percentageDisplay, $"{Math.Round(classAverage, 2)}/{quiz.TotalPoints}", classPercentage);
+                    dataGridView1.Rows.Add(quiz.Name, $"{Math.Round(attempt.Score, 2)}/{quiz.TotalPoints}", (userPercentage.ToString("F2") + "%"), $"{Math.Round(classAverage, 2)}/{quiz.TotalPoints}", (classPercentage.ToString("F2") + "%"));
                 }
             }
+            progressBar1.Value = getAveragePercentage(userPercentages);
+            progressBar2.Value = getAveragePercentage(classPercentages);
+
         }
 
         private double GetClassQuizAverage(int studentID, long quizID)
@@ -102,24 +112,32 @@ namespace ClassSmart.Forms.Main
             return 0;
         }
 
-        private string GeneratePercentageDisplay(double score, double total)
+        private double GeneratePercentageDisplay(double score, double total)
         {
-            string percentageDisplay;
+            if (total == 0)
+            {
+                return 0;
+            }
 
-            if (score == 0)
+            double percentage = Math.Round((score / total) * 100, 2);
+            return Math.Min(percentage, 100);
+        }
+
+        private int getAveragePercentage(List<double> percentageList)
+        {
+            if (percentageList == null || percentageList.Count == 0)
             {
-                percentageDisplay = "0%";
+                return 0;
             }
-            else
+
+            double total = 0;
+
+            foreach (var percentage in percentageList)
             {
-                var percentage = Math.Round((score / total) * 100, 2);
-                if (percentage > 100)
-                {
-                    percentage = 100;
-                }
-                percentageDisplay = percentage.ToString("F2") + "%";
+                total += percentage;
             }
-            return percentageDisplay;
+
+            return (int)Math.Round(total / percentageList.Count);
         }
 
         private void StudentAnalyticsForm_Load(object sender, EventArgs e)
@@ -134,6 +152,26 @@ namespace ClassSmart.Forms.Main
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
