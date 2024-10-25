@@ -34,12 +34,13 @@ namespace ClassSmart.Forms
             viewUpcomingQuizzesBtn = new Button();
             viewClassesBtn = new Button();
             label1 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // logoutBtn
             // 
             logoutBtn.Cursor = Cursors.Hand;
-            logoutBtn.Location = new Point(322, 327);
+            logoutBtn.Location = new Point(162, 314);
             logoutBtn.Margin = new Padding(3, 4, 3, 4);
             logoutBtn.Name = "logoutBtn";
             logoutBtn.Size = new Size(274, 80);
@@ -84,11 +85,22 @@ namespace ClassSmart.Forms
             label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(482, 314);
+            button1.Name = "button1";
+            button1.Size = new Size(274, 80);
+            button1.TabIndex = 11;
+            button1.Text = "Analytics";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // StudentDashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(917, 591);
+            Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(logoutBtn);
             Controls.Add(viewUpcomingQuizzesBtn);
@@ -100,6 +112,7 @@ namespace ClassSmart.Forms
             Name = "StudentDashboardForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
+            Load += StudentDashboardForm_Load;
             ResumeLayout(false);
         }
 
@@ -110,5 +123,6 @@ namespace ClassSmart.Forms
         private Button viewUpcomingQuizzesBtn;
         private Button viewClassesBtn;
         private Label label1;
+        private Button button1;
     }
 }

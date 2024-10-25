@@ -24,19 +24,12 @@ namespace ClassSmart.Forms
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // QuizAttemptForm
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "QuizAttemptForm";
-            Text = "QuizAttemptForm";
-            Load += QuizAttemptForm_Load;
-            ResumeLayout(false);
             mainLabel = new Label();
             questionNumberLabel = new Label();
             questionBackground = new Label();

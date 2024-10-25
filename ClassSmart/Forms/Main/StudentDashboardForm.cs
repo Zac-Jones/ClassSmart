@@ -56,5 +56,17 @@ namespace ClassSmart.Forms
         {
 
         }
+
+        private void StudentDashboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            StudentAnalyticsForm studentAnalyticsForm = new StudentAnalyticsForm(student, this);
+            studentAnalyticsForm.Show();
+            Hide();
+        }
     }
 }

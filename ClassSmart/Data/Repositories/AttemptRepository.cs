@@ -1,4 +1,5 @@
-﻿using ClassSmart.Models;
+﻿using ClassSmart.Model;
+using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,15 @@ namespace ClassSmart.Data.Repositories
         public List<QuizAttempt> GetQuizAttempts(long studentId)
         {
             return _context.QuizAttempts.Where(q => q.StudentId == studentId).ToList(); ;
+        }
+
+        public List<long> GetStudentIdsInQuiz(long quizId)
+        {
+            return _context.QuizAttempts
+                .Where(q => q.QuizId == quizId)
+                .Select(q => (long)q.StudentId)
+                .Distinct()
+                .ToList();
         }
     }
 }

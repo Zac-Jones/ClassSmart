@@ -105,6 +105,7 @@ namespace ClassSmart.Forms
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ClassSmart";
+            Load += LoginForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

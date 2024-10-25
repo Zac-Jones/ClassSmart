@@ -82,5 +82,10 @@ namespace ClassSmart.Forms.Main
                 Dispose();
             }
         }
+
+        private void StudentClassDetailsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

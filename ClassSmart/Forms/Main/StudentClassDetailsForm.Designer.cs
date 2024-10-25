@@ -38,16 +38,17 @@
             label3.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(800, 50);
+            label3.Size = new Size(914, 67);
             label3.TabIndex = 13;
             label3.Text = "Student Class Details";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cancelBtn
             // 
-            cancelBtn.Location = new Point(12, 415);
+            cancelBtn.Location = new Point(14, 553);
+            cancelBtn.Margin = new Padding(3, 4, 3, 4);
             cancelBtn.Name = "cancelBtn";
-            cancelBtn.Size = new Size(75, 23);
+            cancelBtn.Size = new Size(86, 31);
             cancelBtn.TabIndex = 14;
             cancelBtn.Text = "Cancel";
             cancelBtn.UseVisualStyleBackColor = true;
@@ -55,14 +56,16 @@
             // 
             // StudentClassDetailsForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(cancelBtn);
             Controls.Add(label3);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "StudentClassDetailsForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "StudentClassDetailsForm";
+            Load += StudentClassDetailsForm_Load;
             ResumeLayout(false);
         }
 
