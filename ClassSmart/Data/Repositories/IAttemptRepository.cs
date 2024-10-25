@@ -13,6 +13,4 @@ namespace ClassSmart.Data.Repositories
         List<QuizAttempt> GetQuizAttempts(long studentId);
         List<long> GetStudentIdsInQuiz(long quizId);
     }
-
-   
 }

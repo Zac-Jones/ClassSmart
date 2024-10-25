@@ -61,11 +61,6 @@ namespace ClassSmart.Services
             return _quizRepository.getQuizById(id);
         }
 
-        public List<Quiz> GetQuizzesByStudent(Student student)
-        {
-            return _quizRepository.GetQuizzesByStudent(student);
-        }
-
         public void DeleteQuiz(int quizId)
         {
             _quizRepository.DeleteQuiz(quizId);

@@ -24,7 +24,7 @@ namespace ClassSmart.Forms.Main
         {
             this.teacher = teacher;
             this.teacherDashboardForm = teacherDashboardForm;
-            InitializeComponent();
+            InitializeComponent();          
 
             //Display Class Information Here
             DisplayClass(teacher);
@@ -98,16 +98,6 @@ namespace ClassSmart.Forms.Main
                 Hide();
                 Dispose();
             }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TeacherClassDetailsForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

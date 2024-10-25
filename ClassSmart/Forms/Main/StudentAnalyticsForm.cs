@@ -25,6 +25,12 @@ namespace ClassSmart.Forms.Main
             returnForm1 = returnForm;
             Console.WriteLine("StudentAnalyticsForm initialized.");
             DisplayClass(student);
+            FormClosing += new FormClosingEventHandler(StudentAnalyticsForm_FormClosing);
+        }
+
+        private void StudentAnalyticsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void DisplayClass(Student student)

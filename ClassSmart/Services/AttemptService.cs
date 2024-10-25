@@ -30,7 +30,7 @@ namespace ClassSmart.Services
 
         public List<long> GetStudentIdsInQuiz(long quizId)
         {
-           return _attemptRepository.GetStudentIdsInQuiz(quizId);
+            return _attemptRepository.GetStudentIdsInQuiz(quizId);
         }
     }
 }

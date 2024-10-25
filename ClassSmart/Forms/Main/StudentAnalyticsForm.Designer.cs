@@ -34,12 +34,12 @@
             ClassMarkAverage = new DataGridViewTextBoxColumn();
             ClassPercentageAverage = new DataGridViewTextBoxColumn();
             dataGridView1 = new DataGridView();
-            button1 = new Button();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -82,34 +82,27 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dataGridView1.Location = new Point(65, 66);
+            dataGridView1.Enabled = false;
+            dataGridView1.Location = new Point(100, 58);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(685, 188);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(321, 337);
-            button1.Name = "button1";
-            button1.Size = new Size(156, 74);
-            button1.TabIndex = 1;
-            button1.Text = "Return";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridView1.Size = new Size(678, 141);
+            dataGridView1.TabIndex = 2;
             // 
             // Column1
             // 
             Column1.HeaderText = "Quiz Name";
             Column1.MinimumWidth = 6;
             Column1.Name = "Column1";
+            Column1.ReadOnly = true;
             Column1.Width = 125;
             // 
             // Column2
@@ -117,6 +110,7 @@
             Column2.HeaderText = "Score";
             Column2.MinimumWidth = 6;
             Column2.Name = "Column2";
+            Column2.ReadOnly = true;
             Column2.Width = 125;
             // 
             // Column3
@@ -124,6 +118,7 @@
             Column3.HeaderText = "Percentage";
             Column3.MinimumWidth = 6;
             Column3.Name = "Column3";
+            Column3.ReadOnly = true;
             Column3.Width = 125;
             // 
             // Column4
@@ -131,6 +126,7 @@
             Column4.HeaderText = "Average Score";
             Column4.MinimumWidth = 6;
             Column4.Name = "Column4";
+            Column4.ReadOnly = true;
             Column4.Width = 125;
             // 
             // Column5
@@ -138,17 +134,31 @@
             Column5.HeaderText = "Average Percentage";
             Column5.MinimumWidth = 6;
             Column5.Name = "Column5";
+            Column5.ReadOnly = true;
             Column5.Width = 125;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(371, 245);
+            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Name = "button1";
+            button1.Size = new Size(136, 56);
+            button1.TabIndex = 3;
+            button1.Text = "Return";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // StudentAnalyticsForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(878, 338);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "StudentAnalyticsForm";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "ClassSmart";
             Load += StudentAnalyticsForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -161,11 +171,11 @@
         private DataGridViewTextBoxColumn ClassMarkAverage;
         private DataGridViewTextBoxColumn ClassPercentageAverage;
         private DataGridView dataGridView1;
-        private Button button1;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
+        private Button button1;
     }
 }

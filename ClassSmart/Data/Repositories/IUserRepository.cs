@@ -1,4 +1,5 @@
 ﻿using ClassSmart.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,9 @@ namespace ClassSmart.Data.Repositories
         Student GetStudentByCredentials(string email, string password);
         Teacher GetTeacherByEmail(string email);
         Student GetStudentByEmail(string email);
-
-        Student GetStudentFromId(long id);
         void UpdateTeacher(Teacher teacher);
         void AddTeacher(Teacher teacher);
         void AddStudent(Student student);
+        Student GetStudentFromId(long id);
     }
 }

@@ -44,6 +44,7 @@ namespace ClassSmart.Forms
 
         private void viewAnalyticsBtn_Click(object sender, EventArgs e)
         {
+            
         }
 
         private void viewQuizzesBtn_Click(object sender, EventArgs e)
@@ -65,16 +66,6 @@ namespace ClassSmart.Forms
             loginForm.Show();
             Hide();
             Dispose();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TeacherDashboardForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

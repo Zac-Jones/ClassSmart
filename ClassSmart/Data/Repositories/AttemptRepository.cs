@@ -1,5 +1,4 @@
-﻿using ClassSmart.Model;
-using ClassSmart.Models;
+﻿using ClassSmart.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

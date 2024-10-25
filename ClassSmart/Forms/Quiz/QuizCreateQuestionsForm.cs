@@ -48,8 +48,6 @@ namespace ClassSmart.Forms.Quiz
 
         private void displayMultipleChoice()
         {
-            Controls.Add(label5);
-            Controls.Add(textBox5);
             Controls.Add(label3);
             Controls.Add(textBox4);
             Controls.Add(checkBox4);
@@ -75,7 +73,7 @@ namespace ClassSmart.Forms.Quiz
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearControls();
-            if (comboBox1.SelectedItem.ToString() == "MultipleChoice")
+            if (comboBox1.SelectedItem != null)
             {
                 if (comboBox1.SelectedItem.ToString() == QuestionType.MultipleChoice.ToString())
                 {
