@@ -23,6 +23,12 @@ namespace ClassSmart.Forms.Main
             this.teacherDashboardForm = teacherDashboardForm;
             InitializeComponent();
             DisplayClassDetails(teacher);
+            FormClosing += new FormClosingEventHandler(TeacherAnalyticsForm_FormClosing);
+        }
+
+        private void TeacherAnalyticsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void TeacherAnalyticsForm_Load(object sender, EventArgs e)

@@ -33,9 +33,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(12, 233);
+            button1.Location = new Point(275, 262);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(173, 72);
+            button1.Size = new Size(151, 54);
             button1.TabIndex = 0;
             button1.Text = "Return";
             button1.UseVisualStyleBackColor = true;
@@ -43,12 +44,14 @@
             // 
             // TeacherAnalyticsForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(button1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "TeacherAnalyticsForm";
-            Text = "TeacherAnalyticsForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "ClassSmart";
             Load += TeacherAnalyticsForm_Load;
             ResumeLayout(false);
         }

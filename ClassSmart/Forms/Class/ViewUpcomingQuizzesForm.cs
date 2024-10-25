@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Model;
 using ClassSmart.Services;
 using ClassSmart.Models;
-using Microsoft.Identity.Client;
+using ClassSmart.Utilities;
 
 namespace ClassSmart.Forms.Class
 {
     public partial class ViewUpcomingQuizzesForm : Form
     {
         StudentDashboardForm studentDashboardForm;
+
         public ViewUpcomingQuizzesForm(Student student, StudentDashboardForm studentDashboardForm)
         {
             this.studentDashboardForm = studentDashboardForm;
@@ -35,7 +32,7 @@ namespace ClassSmart.Forms.Class
             List<Models.Class> classes = userService.GetClassesForStudent(student);
 
             int i = 50;
-            //Displays the student's quizzes in all of the classes they are in
+            // Displays the student's quizzes in all of the classes they are in
             foreach (Models.Class c in classes)
             {
                 List<Models.Quiz> quizzes = userService.GetQuizzesForClass(c);
@@ -43,46 +40,56 @@ namespace ClassSmart.Forms.Class
                 // Sort quizzes by StartTime
                 var sortedQuizzes = quizzes.OrderBy(q => q.StartTime).ToList();
 
-                foreach (Models.Quiz q in sortedQuizzes)
-                {
-                    //Generate a new button
-                    Button newButton = new Button();
-                    newButton.Text = "Quiz Name: " + Environment.NewLine + q.Name + " (ID:" + q.Id + ")";
-                    var size = new Size(100, 50);
-                    newButton.Size = size; // Set the size of the button
-                    newButton.Location = new System.Drawing.Point((Width / 2) - (size.Width / 2), i); // Set the location on the form
-                    newButton.Click += (sender, e) => NewButton_Click(sender, e, q);
-                    newButton.BringToFront();
-                    Controls.Add(newButton);
+                // Filter quizzes that are currently open
+                var openQuizzes = CollectionFilterUtil.Filter(sortedQuizzes, q => q.StartTime <= DateTime.Now && q.EndTime >= DateTime.Now);
+                var closedQuizzes = CollectionFilterUtil.Filter(sortedQuizzes, q => q.EndTime < DateTime.Now || q.StartTime > DateTime.Now);
 
-                    // Check if quiz start date hasn't happened yet
-                    if (DateTime.Now < q.StartTime)
-                    {
-                        newButton.Enabled = false; // Disable button for future quizzes
-                    }
-                    else
-                    {
-                        // Check if user has already taken the quiz (implementation depends on your logic)
-                        bool hasTakenQuiz = CheckIfUserHasTakenQuiz(student.Id, q.Id);
-                        if (hasTakenQuiz)
-                        {
-                            newButton.Enabled = false; // Disable button for taken quizzes
-                        }
-                    }
-
-                    // Generate a new label for start and end dates
-                    Label dateLabel = new Label();
-                    dateLabel.Text = $"Start: {q.StartTime.ToShortDateString()} End: {q.EndTime.ToShortDateString()}";
-                    dateLabel.Location = new System.Drawing.Point((Width / 2) - (size.Width / 2) + 120, i + 15); // Position the label beside the button
-                    dateLabel.AutoSize = true;
-                    dateLabel.BringToFront();
-                    Controls.Add(dateLabel);
-
-                    i += 70; // Adjust position for the next button and label
-                }
+                // Display open quizzes first
+                DisplayQuizButtons(openQuizzes, student, ref i, true);
+                // Display closed quizzes
+                DisplayQuizButtons(closedQuizzes, student, ref i, false);
             }
+        }
 
-            
+        private void DisplayQuizButtons(List<Models.Quiz> quizzes, Student student, ref int position, bool isOpen)
+        {
+            foreach (Models.Quiz q in quizzes)
+            {
+                // Generate a new button
+                Button newButton = new Button();
+                newButton.Text = "Quiz Name: " + Environment.NewLine + q.Name + " (ID:" + q.Id + ")";
+                var size = new Size(100, 50);
+                newButton.Size = size; // Set the size of the button
+                newButton.Location = new Point((Width / 2) - (size.Width / 2), position); // Set the location on the form
+                newButton.Click += (sender, e) => NewButton_Click(sender, e, q);
+                newButton.BringToFront();
+                Controls.Add(newButton);
+
+                // Disable the button for closed quizzes
+                if (!isOpen)
+                {
+                    newButton.Enabled = false; // Disable button for closed quizzes
+                }
+                else
+                {
+                    // Check if the user has already taken the quiz
+                    bool hasTakenQuiz = CheckIfUserHasTakenQuiz(student.Id, q.Id);
+                    if (hasTakenQuiz)
+                    {
+                        newButton.Enabled = false; // Disable button for taken quizzes
+                    }
+                }
+
+                // Generate a new label for start and end dates
+                Label dateLabel = new Label();
+                dateLabel.Text = $"Start: {q.StartTime.ToShortDateString()} End: {q.EndTime.ToShortDateString()}";
+                dateLabel.Location = new Point((Width / 2) - (size.Width / 2) + 120, position + 15); // Position the label beside the button
+                dateLabel.AutoSize = true;
+                dateLabel.BringToFront();
+                Controls.Add(dateLabel);
+
+                position += 70; // Adjust position for the next button and label
+            }
         }
 
         private bool CheckIfUserHasTakenQuiz(long studentID, long quizId)
@@ -90,14 +97,9 @@ namespace ClassSmart.Forms.Class
             AttemptRepository attemptRepository = new AttemptRepository(new ApplicationDBContext());
             AttemptService attemptService = new AttemptService(attemptRepository);
             List<QuizAttempt> quizAttempts = attemptService.GetQuizzAttemptForStudent(studentID);
-            foreach(Models.QuizAttempt q in quizAttempts)
-            {
-                if(q.QuizId == quizId)
-                {
-                    return true;
-                }
-            }
-            return false;
+            // Use generic method to check if quiz attempt exists
+            var attempt = CollectionFilterUtil.FindById(quizAttempts, q => q.QuizId, quizId);
+            return attempt != null; // Return true if found
         }
 
         private void NewButton_Click(object sender, EventArgs e, Models.Quiz q)

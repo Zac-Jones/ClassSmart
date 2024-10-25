@@ -12,19 +12,35 @@ using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
 using ClassSmart.Services;
+using System.Windows.Forms.DataVisualization.Charting;
+using ClassSmart.Utilities;
 
 namespace ClassSmart.Forms.Main
 {
     public partial class StudentAnalyticsForm : Form
     {
         private Form returnForm1;
+        private Student student;
+        private Chart chart = new Chart
+        {
+            Width = 678,
+            Height = 272,
+            Location = new Point(101, 252)
+        };
+
+        private Series series = new Series("Student Analytics")
+        {
+            ChartType = SeriesChartType.Column
+        };
 
 
         public StudentAnalyticsForm(Student student, Form returnForm)
         {
             InitializeComponent();
+            this.student = student;
             returnForm1 = returnForm;
             Console.WriteLine("StudentAnalyticsForm initialized.");
+            InitializeChart();
             DisplayClass(student);
             FormClosing += new FormClosingEventHandler(StudentAnalyticsForm_FormClosing);
         }
@@ -32,6 +48,24 @@ namespace ClassSmart.Forms.Main
         private void StudentAnalyticsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void InitializeChart()
+        {
+            // Add a chart area
+            ChartArea chartArea = new ChartArea("MainArea");
+            chart.ChartAreas.Add(chartArea);
+
+            // Add chart to form controls
+            Controls.Add(chart);
+            chart.BringToFront();
+        }
+
+        private void PopulateChart(double userPercentage, double classPercentage, int quizId)
+        {
+            // Add points
+            series.Points.AddXY($"{student.Name} - Quiz #" + quizId, userPercentage);
+            series.Points.AddXY("Class Average - Quiz #" + quizId, classPercentage);
         }
 
         private void DisplayClass(Student student)
@@ -46,8 +80,8 @@ namespace ClassSmart.Forms.Main
             ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
             QuizService quizService = new QuizService(classRepository, quizRepository, userRepository);
 
-            List<double> classPercentages = [];
-            List<double> userPercentages = [];
+            List<double> classPercentages = new List<double>();
+            List<double> userPercentages = new List<double>();
 
             List<QuizAttempt> quizAttempts = attemptService.GetQuizzAttemptForStudent(student.Id);
 
@@ -57,7 +91,6 @@ namespace ClassSmart.Forms.Main
                 if (quiz != null)
                 {
                     double userPercentage = GeneratePercentageDisplay(attempt.Score, quiz.TotalPoints);
-
                     userPercentages.Add(userPercentage);
 
                     var classAverage = GetClassQuizAverage(student.Id, quiz.Id);
@@ -65,11 +98,13 @@ namespace ClassSmart.Forms.Main
                     classPercentages.Add(classPercentage);
 
                     dataGridView1.Rows.Add(quiz.Name, $"{Math.Round(attempt.Score, 2)}/{quiz.TotalPoints}", (userPercentage.ToString("F2") + "%"), $"{Math.Round(classAverage, 2)}/{quiz.TotalPoints}", (classPercentage.ToString("F2") + "%"));
+
+                    PopulateChart(userPercentage, classPercentage, quiz.Id);
                 }
             }
-            progressBar1.Value = getAveragePercentage(userPercentages);
-            progressBar2.Value = getAveragePercentage(classPercentages);
 
+            // Add series to the chart
+            chart.Series.Add(series);
         }
 
         private double GetClassQuizAverage(int studentID, long quizID)
@@ -123,57 +158,11 @@ namespace ClassSmart.Forms.Main
             return Math.Min(percentage, 100);
         }
 
-        private int getAveragePercentage(List<double> percentageList)
-        {
-            if (percentageList == null || percentageList.Count == 0)
-            {
-                return 0;
-            }
-
-            double total = 0;
-
-            foreach (var percentage in percentageList)
-            {
-                total += percentage;
-            }
-
-            return (int)Math.Round(total / percentageList.Count);
-        }
-
-        private void StudentAnalyticsForm_Load(object sender, EventArgs e)
-        {
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             returnForm1.Show();
             Hide();
             Dispose();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void progressBar2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
