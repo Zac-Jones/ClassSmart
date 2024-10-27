@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClassSmart.Data.Repositories;
+﻿using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Model;
 using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Main
 {
+    /// <summary>
+    /// Form for displaying teacher analytics.
+    /// </summary>
     public partial class TeacherAnalyticsForm : Form
     {
         private TeacherDashboardForm teacherDashboardForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeacherAnalyticsForm"/> class.
+        /// </summary>
+        /// <param name="teacher">The teacher whose analytics are to be displayed.</param>
+        /// <param name="teacherDashboardForm">The dashboard form to return to after closing this form.</param>
         public TeacherAnalyticsForm(Teacher teacher, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacherDashboardForm = teacherDashboardForm;
@@ -26,15 +25,29 @@ namespace ClassSmart.Forms.Main
             FormClosing += new FormClosingEventHandler(TeacherAnalyticsForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void TeacherAnalyticsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Handles the form load event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void TeacherAnalyticsForm_Load(object sender, EventArgs e)
         {
         }
 
+        /// <summary>
+        /// Displays the class details for the specified teacher.
+        /// </summary>
+        /// <param name="teacher">The teacher whose class details are to be displayed.</param>
         private void DisplayClassDetails(Teacher teacher)
         {
             ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
@@ -45,16 +58,11 @@ namespace ClassSmart.Forms.Main
 
             List<Student> students = userService.GetStudentsForClass(teacherClass);
 
-            //Available Variable for checking if student objects are in <Student> Students list in class Class
-            bool available = false;
-
-
             int buttonHeight = 30;
             int buttonSpacing = 10;
 
             foreach (Student student in students)
             {
-
                 Button studentButton = new Button
                 {
                     Text = student.Name,
@@ -73,6 +81,11 @@ namespace ClassSmart.Forms.Main
             }
         }
 
+        /// <summary>
+        /// Handles the back button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
             teacherDashboardForm.Show();

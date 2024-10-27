@@ -1,23 +1,26 @@
 ﻿using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Forms.Main;
-using ClassSmart.Model;
 using ClassSmart.Services;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using ClassSmart.Models;
 using ClassSmart.Utilities;
 
 namespace ClassSmart.Forms.Class
 {
+    /// <summary>
+    /// Form for viewing quizzes in a class.
+    /// </summary>
     public partial class ClassViewQuizzesForm : Form
     {
         StudentClassDetailsForm studentClassDetailsForm;
         StudentDashboardForm studentDashboardForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassViewQuizzesForm"/> class.
+        /// </summary>
+        /// <param name="c">The class whose quizzes are to be displayed.</param>
+        /// <param name="studentClassDetailsForm">The parent class details form.</param>
+        /// <param name="studentDashboardForm">The parent dashboard form.</param>
         public ClassViewQuizzesForm(Models.Class c, StudentClassDetailsForm studentClassDetailsForm, StudentDashboardForm studentDashboardForm)
         {
             this.studentClassDetailsForm = studentClassDetailsForm;
@@ -26,6 +29,10 @@ namespace ClassSmart.Forms.Class
             DisplayQuizzes(c);
         }
 
+        /// <summary>
+        /// Displays the quizzes for the specified class.
+        /// </summary>
+        /// <param name="c">The class whose quizzes are to be displayed.</param>
         private void DisplayQuizzes(Models.Class c)
         {
             // Initialize repositories and services
@@ -51,6 +58,11 @@ namespace ClassSmart.Forms.Class
             DisplayQuizButtons(closedQuizzes, ref i);
         }
 
+        /// <summary>
+        /// Displays quiz buttons for the specified list of quizzes.
+        /// </summary>
+        /// <param name="quizzes">The list of quizzes to display buttons for.</param>
+        /// <param name="position">The position to start displaying buttons.</param>
         private void DisplayQuizButtons(List<Models.Quiz> quizzes, ref int position)
         {
             // Get the student's ID from the dashboard form (assumed to be available)
@@ -87,6 +99,12 @@ namespace ClassSmart.Forms.Class
             }
         }
 
+        /// <summary>
+        /// Checks if the user has taken the specified quiz.
+        /// </summary>
+        /// <param name="studentID">The ID of the student.</param>
+        /// <param name="quizId">The ID of the quiz.</param>
+        /// <returns>True if the user has taken the quiz, otherwise false.</returns>
         private bool CheckIfUserHasTakenQuiz(long studentID, long quizId)
         {
             // Initialize repositories and services
@@ -98,6 +116,12 @@ namespace ClassSmart.Forms.Class
             return quizAttempts.Any(q => q.QuizId == quizId); // Simplified check
         }
 
+        /// <summary>
+        /// Handles the click event for the quiz buttons.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        /// <param name="q">The quiz associated with the button.</param>
         private void NewButton_Click(object sender, EventArgs e, Models.Quiz q)
         {
             // Open the quiz attempt form
@@ -106,23 +130,17 @@ namespace ClassSmart.Forms.Class
             Hide();
         }
 
+        /// <summary>
+        /// Handles the Cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(
-            "Are You Sure You Want To Cancel?",
-            "Confirm Cancel",
-            MessageBoxButtons.OKCancel,
-            MessageBoxIcon.Warning
-            );
-
-            if (result == DialogResult.OK)
-            {
-                // Show the student class details form and hide the current form
-                studentClassDetailsForm.Show();
-                Hide();
-                Dispose();
-            }
+            studentDashboardForm.Show();
+            Hide();
+            Dispose();
         }
     }
 }
+

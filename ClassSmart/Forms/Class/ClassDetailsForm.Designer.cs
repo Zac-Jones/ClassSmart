@@ -31,9 +31,9 @@
             components = new System.ComponentModel.Container();
             label1 = new Label();
             listBox1 = new ListBox();
+            classBindingSource = new BindingSource(components);
             textbox1 = new TextBox();
             CancelBtn = new Button();
-            classBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)classBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -55,6 +55,10 @@
             listBox1.Size = new Size(120, 94);
             listBox1.TabIndex = 1;
             // 
+            // classBindingSource
+            // 
+            classBindingSource.DataSource = typeof(Models.Class);
+            // 
             // textbox1
             // 
             textbox1.Location = new Point(350, 47);
@@ -70,13 +74,9 @@
             CancelBtn.Name = "CancelBtn";
             CancelBtn.Size = new Size(75, 23);
             CancelBtn.TabIndex = 4;
-            CancelBtn.Text = "Cancel";
+            CancelBtn.Text = "Home";
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click_1;
-            // 
-            // classBindingSource
-            // 
-            classBindingSource.DataSource = typeof(Models.Class);
             // 
             // ClassDetailsForm
             // 

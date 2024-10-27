@@ -5,6 +5,9 @@ using DotNetEnv;
 
 namespace ClassSmart.Data
 {
+    /// <summary>
+    /// Database context class for the ClassSmart application.
+    /// </summary>
     public class ApplicationDBContext : DbContext
     {
         public DbSet<Class> Classes { get; set; }
@@ -15,7 +18,10 @@ namespace ClassSmart.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<QuizAttempt> QuizAttempts { get; set; }
 
-
+        /// <summary>
+        /// Configures the database connection using environment variables.
+        /// </summary>
+        /// <param name="optionsBuilder">The options builder for configuring the context.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Env.Load();
@@ -29,6 +35,10 @@ namespace ClassSmart.Data
             optionsBuilder.UseMySQL(connectionString);
         }
 
+        /// <summary>
+        /// Configures the model relationships and constraints.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder for configuring the model.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Class>()

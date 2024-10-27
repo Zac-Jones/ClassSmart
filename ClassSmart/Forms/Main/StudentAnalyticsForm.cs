@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClassSmart.Data;
+﻿using ClassSmart.Data;
 using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
 using ClassSmart.Models;
 using ClassSmart.Services;
 using System.Windows.Forms.DataVisualization.Charting;
-using ClassSmart.Utilities;
 
 namespace ClassSmart.Forms.Main
 {
+    /// <summary>
+    /// Form for displaying student analytics.
+    /// </summary>
     public partial class StudentAnalyticsForm : Form
     {
         private Form returnForm1;
@@ -33,7 +26,11 @@ namespace ClassSmart.Forms.Main
             ChartType = SeriesChartType.Column
         };
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentAnalyticsForm"/> class.
+        /// </summary>
+        /// <param name="student">The student whose analytics are to be displayed.</param>
+        /// <param name="returnForm">The form to return to after closing this form.</param>
         public StudentAnalyticsForm(Student student, Form returnForm)
         {
             InitializeComponent();
@@ -45,11 +42,19 @@ namespace ClassSmart.Forms.Main
             FormClosing += new FormClosingEventHandler(StudentAnalyticsForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void StudentAnalyticsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Initializes the chart for displaying analytics.
+        /// </summary>
         private void InitializeChart()
         {
             // Add a chart area
@@ -61,6 +66,12 @@ namespace ClassSmart.Forms.Main
             chart.BringToFront();
         }
 
+        /// <summary>
+        /// Populates the chart with data.
+        /// </summary>
+        /// <param name="userPercentage">The user's percentage score.</param>
+        /// <param name="classPercentage">The class's average percentage score.</param>
+        /// <param name="quizId">The ID of the quiz.</param>
         private void PopulateChart(double userPercentage, double classPercentage, int quizId)
         {
             // Add points
@@ -68,6 +79,10 @@ namespace ClassSmart.Forms.Main
             series.Points.AddXY("Class Average - Quiz #" + quizId, classPercentage);
         }
 
+        /// <summary>
+        /// Displays the class analytics for the specified student.
+        /// </summary>
+        /// <param name="student">The student whose class analytics are to be displayed.</param>
         private void DisplayClass(Student student)
         {
             // Attempt Service
@@ -107,6 +122,12 @@ namespace ClassSmart.Forms.Main
             chart.Series.Add(series);
         }
 
+        /// <summary>
+        /// Gets the class average score for a specific quiz.
+        /// </summary>
+        /// <param name="studentID">The ID of the student.</param>
+        /// <param name="quizID">The ID of the quiz.</param>
+        /// <returns>The class average score for the quiz.</returns>
         private double GetClassQuizAverage(int studentID, long quizID)
         {
             // Attempt Service
@@ -147,6 +168,12 @@ namespace ClassSmart.Forms.Main
             return 0;
         }
 
+        /// <summary>
+        /// Generates a percentage display for a given score and total.
+        /// </summary>
+        /// <param name="score">The score obtained.</param>
+        /// <param name="total">The total possible score.</param>
+        /// <returns>The percentage score.</returns>
         private double GeneratePercentageDisplay(double score, double total)
         {
             if (total == 0)
@@ -158,6 +185,11 @@ namespace ClassSmart.Forms.Main
             return Math.Min(percentage, 100);
         }
 
+        /// <summary>
+        /// Handles the back button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
             returnForm1.Show();

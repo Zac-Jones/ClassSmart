@@ -49,7 +49,7 @@
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(75, 23);
             cancelBtn.TabIndex = 15;
-            cancelBtn.Text = "Cancel";
+            cancelBtn.Text = "Home";
             cancelBtn.UseVisualStyleBackColor = true;
             cancelBtn.Click += cancelBtn_Click;
             // 

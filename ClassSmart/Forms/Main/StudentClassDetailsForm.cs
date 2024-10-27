@@ -2,23 +2,22 @@
 using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Model;
-using ClassSmart.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Main
 {
+    /// <summary>
+    /// Form for displaying student class details.
+    /// </summary>
     public partial class StudentClassDetailsForm : Form
     {
         StudentDashboardForm studentDashboardForm;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentClassDetailsForm"/> class.
+        /// </summary>
+        /// <param name="student">The student whose class details are to be displayed.</param>
+        /// <param name="studentDashboardForm">The dashboard form to return to after closing this form.</param>
         public StudentClassDetailsForm(Student student, StudentDashboardForm studentDashboardForm)
         {
             this.studentDashboardForm = studentDashboardForm;
@@ -28,12 +27,20 @@ namespace ClassSmart.Forms.Main
             FormClosing += new FormClosingEventHandler(StudentClassDetailsForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void StudentClassDetailsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
-        // Method to Display Class Information
+        /// <summary>
+        /// Displays the class information for the specified student.
+        /// </summary>
+        /// <param name="student">The student whose class information is to be displayed.</param>
         private void DisplayClass(Student student)
         {
             UserRepository userRepository = new UserRepository(new ApplicationDBContext());
@@ -45,7 +52,7 @@ namespace ClassSmart.Forms.Main
 
             foreach (Models.Class c in classes)
             {
-                //Generate a new button
+                // Generate a new button
                 Button newButton = new Button();
                 newButton.Text = "Class ID: " + c.Id;
                 var size = new Size(100, 50);
@@ -59,6 +66,12 @@ namespace ClassSmart.Forms.Main
             }
         }
 
+        /// <summary>
+        /// Handles the click event for the dynamically generated class buttons.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        /// <param name="c">The class associated with the clicked button.</param>
         private void NewButton_Click(object sender, EventArgs e, Models.Class c)
         {
             ClassViewQuizzesForm classViewQuizzesForm = new ClassViewQuizzesForm(c, this, studentDashboardForm);
@@ -66,21 +79,16 @@ namespace ClassSmart.Forms.Main
             Hide();
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-            "Are You Sure You Want To Cancel?",
-            "Confirm Cancel",
-            MessageBoxButtons.OKCancel,
-            MessageBoxIcon.Warning
-            );
-
-            if (result == DialogResult.OK)
-            {
-                studentDashboardForm.Show();
-                Hide();
-                Dispose();
-            }
+            studentDashboardForm.Show();
+            Hide();
+            Dispose();
         }
     }
 }

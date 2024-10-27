@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClassSmart.Models;
-using ClassSmart.Model;
+﻿using ClassSmart.Model;
 using ClassSmart.Forms.Main;
 using ClassSmart.Forms.TeacherSpecific;
 
 namespace ClassSmart.Forms
 {
+    /// <summary>
+    /// Form for displaying the teacher dashboard.
+    /// </summary>
     public partial class TeacherDashboardForm : Form
     {
-        //private Teacher teacher;
-        //private LoginForm loginForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeacherDashboardForm"/> class.
+        /// </summary>
+        /// <param name="teacher">The teacher associated with this dashboard.</param>
+        /// <param name="loginForm">The login form to return to after logging out.</param>
         public TeacherDashboardForm(Teacher teacher, LoginForm loginForm)
         {
             this.teacher = teacher;
@@ -29,19 +25,33 @@ namespace ClassSmart.Forms
             FormClosing += new FormClosingEventHandler(TeacherDashboardForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void TeacherDashboardForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Handles the view class button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void viewClassBtn_Click(object sender, EventArgs e)
         {
-
             TeacherClassDetailsForm classDetailsForm = new TeacherClassDetailsForm(teacher, this);
             classDetailsForm.Show();
             Hide();
         }
 
+        /// <summary>
+        /// Handles the view analytics button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void viewAnalyticsBtn_Click(object sender, EventArgs e)
         {
             Main.TeacherAnalyticsForm teacherAnalyticsForm = new Main.TeacherAnalyticsForm(teacher, this);
@@ -49,6 +59,11 @@ namespace ClassSmart.Forms
             Hide();
         }
 
+        /// <summary>
+        /// Handles the view quizzes button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void viewQuizzesBtn_Click(object sender, EventArgs e)
         {
             QuizViewForm quizViewForm = new QuizViewForm(teacher, this);
@@ -56,6 +71,11 @@ namespace ClassSmart.Forms
             Hide();
         }
 
+        /// <summary>
+        /// Handles the create quiz button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void createQuizBtn_Click(object sender, EventArgs e)
         {
             QuizCreateMainForm quizCreateMainForm = new QuizCreateMainForm(teacher, this);
@@ -63,6 +83,11 @@ namespace ClassSmart.Forms
             Hide();
         }
 
+        /// <summary>
+        /// Handles the logout button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void logoutBtn_Click(object sender, EventArgs e)
         {
             loginForm.Show();

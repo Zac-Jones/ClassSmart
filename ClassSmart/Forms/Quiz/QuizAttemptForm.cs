@@ -1,15 +1,6 @@
 ﻿using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
-using ClassSmart.Forms.Class;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using ClassSmart.Services;
 using ClassSmart.Models;
 using ClassSmart.Enums;
@@ -18,6 +9,11 @@ namespace ClassSmart.Forms
 {
     public partial class QuizAttemptForm : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuizAttemptForm"/> class.
+        /// </summary>
+        /// <param name="quiz">The quiz to be attempted.</param>
+        /// <param name="studentDashboardForm">The student dashboard form.</param>
         public QuizAttemptForm(Models.Quiz quiz, StudentDashboardForm studentDashboardForm)
         {
             InitializeComponent();
@@ -41,11 +37,19 @@ namespace ClassSmart.Forms
             FormClosing += new FormClosingEventHandler(QuizAttemptForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the FormClosing event of the QuizAttemptForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
         private void QuizAttemptForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Displays the current question.
+        /// </summary>
         public void DisplayQuestion()
         {
             var percentComplete = (currentQuestionIndex + 1) * 100 / questions.Count;
@@ -84,6 +88,9 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Clears the controls for the current question.
+        /// </summary>
         private void clearControls()
         {
             var controlsToRemove = new List<Control> { checkBox1, checkBox2, checkBox3, checkBox4, answerLabel1, answerLabel2, answerLabel3, answerLabel4, radioButton1, radioButton2 };
@@ -100,6 +107,9 @@ namespace ClassSmart.Forms
             radioButton2.Checked = false;
         }
 
+        /// <summary>
+        /// Displays the multiple-choice question.
+        /// </summary>
         public void DisplayMCQ()
         {
             questionBackground.Size = new Size(459, 214);
@@ -153,6 +163,9 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Displays the true/false question.
+        /// </summary>
         public void DisplayTFQ()
         {
             questionBackground.Size = new Size(459, 130);
@@ -199,6 +212,11 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the homeBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void homeBtn_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to exit? Your current answers will be submitted and the quiz will be locked.", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -209,12 +227,22 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the submitQuizBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void submitQuizBtn_Click(object sender, EventArgs e)
         {
             CheckAndStoreAnswers();
             SubmitAnswers();
         }
 
+        /// <summary>
+        /// Handles the Click event of the nextQuestionBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void nextQuestionBtn_Click(object sender, EventArgs e)
         {
             if (currentQuestionIndex < questions.Count - 1)
@@ -225,6 +253,11 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the backQuestionBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void backQuestionBtn_Click(object sender, EventArgs e)
         {
             if (currentQuestionIndex > 0)
@@ -235,6 +268,9 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Checks and stores the answers for the current question.
+        /// </summary>
         private void CheckAndStoreAnswers()
         {
             QuestionType type = questions[currentQuestionIndex].Type;
@@ -243,7 +279,7 @@ namespace ClassSmart.Forms
             questionAttempt.QuestionId = questions[currentQuestionIndex].Id;
             questionAttempt.QuizAttemptId = quizAttempt.Id;
             questionAttempt.AnswerIndexes = new List<int>();
-            
+
             AnswerRepository answerRepository = new AnswerRepository(new ApplicationDBContext());
             AnswerService answerService = new AnswerService(answerRepository);
 
@@ -316,6 +352,9 @@ namespace ClassSmart.Forms
             questionAttemptList.Add(questionAttempt);
         }
 
+        /// <summary>
+        /// Submits the answers for the quiz attempt.
+        /// </summary>
         private void SubmitAnswers()
         {
             if (questionAttemptList.Count == questions.Count)
@@ -332,6 +371,9 @@ namespace ClassSmart.Forms
             }
         }
 
+        /// <summary>
+        /// Saves the answers for the quiz attempt.
+        /// </summary>
         private void SaveAnswers()
         {
             AttemptRepository attemptRepository = new AttemptRepository(new ApplicationDBContext());

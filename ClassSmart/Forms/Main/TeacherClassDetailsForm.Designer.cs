@@ -60,7 +60,7 @@
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(75, 23);
             cancelBtn.TabIndex = 2;
-            cancelBtn.Text = "Cancel";
+            cancelBtn.Text = "Home";
             cancelBtn.UseVisualStyleBackColor = true;
             cancelBtn.Click += cancelBtn_Click;
             // 
@@ -96,7 +96,7 @@
             Controls.Add(label1);
             Name = "TeacherClassDetailsForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "TeacherClassDetailsForm";
+            Text = "ClassSmart";
             ResumeLayout(false);
             PerformLayout();
         }

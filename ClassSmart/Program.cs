@@ -1,8 +1,8 @@
 using ClassSmart.Data;
+using ClassSmart.Data.Repositories;
 using ClassSmart.Forms;
-using ClassSmart.Model;
+using ClassSmart.Services;
 using ClassSmart.Utilities;
-using Microsoft.EntityFrameworkCore;
 
 namespace ClassSmart
 {
@@ -21,9 +21,15 @@ namespace ClassSmart
             using (var context = new ApplicationDBContext())
             {
                 context.Database.EnsureCreated();
+
+                var userRepository = new UserRepository(context);
+                var classRepository = new ClassRepository(context);
+                var quizRepository = new QuizRepository(context);
+                var userService = new UserService(userRepository, classRepository);
+                var quizService = new QuizService(classRepository, quizRepository, userRepository);
+
+                PopulateTables.Init();
             }
-            
-            PopulateTables.Init();
 
             Application.Run(new LoginForm());   
         }

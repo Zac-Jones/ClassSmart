@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClassSmart.Model;
-using ClassSmart.Models;
-
-namespace ClassSmart.Forms.Main
+﻿namespace ClassSmart.Forms.Main
 {
+    /// <summary>
+    /// Form for displaying the details of a class.
+    /// </summary>
     public partial class ClassDetailsForm : Form
     {
         private TeacherDashboardForm teacherDashboardForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClassDetailsForm"/> class.
+        /// </summary>
+        /// <param name="teacherClass">The class to display details for.</param>
+        /// <param name="teacherDashboardForm">The parent dashboard form.</param>
         public ClassDetailsForm(Models.Class teacherClass, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacherDashboardForm = teacherDashboardForm;
@@ -23,6 +19,10 @@ namespace ClassSmart.Forms.Main
             DisplayClassDetails(teacherClass);
         }
 
+        /// <summary>
+        /// Displays the details of the specified class.
+        /// </summary>
+        /// <param name="teacherClass">The class whose details are to be displayed.</param>
         private void DisplayClassDetails(Models.Class teacherClass)
         {
             label1.Text = $"Class: {teacherClass.Id}";
@@ -34,12 +34,16 @@ namespace ClassSmart.Forms.Main
             }
         }
 
+        /// <summary>
+        /// Handles the Cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void CancelBtn_Click_1(object sender, EventArgs e)
         {
             teacherDashboardForm.Show();
             Hide();
             Dispose();
         }
-
     }
 }

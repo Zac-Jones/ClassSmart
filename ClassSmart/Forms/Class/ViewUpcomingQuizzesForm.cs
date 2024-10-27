@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using ClassSmart.Data.Repositories;
+﻿using ClassSmart.Data.Repositories;
 using ClassSmart.Data;
 using ClassSmart.Model;
 using ClassSmart.Services;
@@ -12,10 +7,18 @@ using ClassSmart.Utilities;
 
 namespace ClassSmart.Forms.Class
 {
+    /// <summary>
+    /// Form for viewing upcoming quizzes for a student.
+    /// </summary>
     public partial class ViewUpcomingQuizzesForm : Form
     {
         StudentDashboardForm studentDashboardForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewUpcomingQuizzesForm"/> class.
+        /// </summary>
+        /// <param name="student">The student whose quizzes are to be displayed.</param>
+        /// <param name="studentDashboardForm">The parent dashboard form.</param>
         public ViewUpcomingQuizzesForm(Student student, StudentDashboardForm studentDashboardForm)
         {
             this.studentDashboardForm = studentDashboardForm;
@@ -23,6 +26,10 @@ namespace ClassSmart.Forms.Class
             DisplayQuizzes(student);
         }
 
+        /// <summary>
+        /// Displays the quizzes for the specified student.
+        /// </summary>
+        /// <param name="student">The student whose quizzes are to be displayed.</param>
         public void DisplayQuizzes(Student student)
         {
             UserRepository userRepository = new UserRepository(new ApplicationDBContext());
@@ -51,6 +58,13 @@ namespace ClassSmart.Forms.Class
             }
         }
 
+        /// <summary>
+        /// Displays quiz buttons for the specified list of quizzes.
+        /// </summary>
+        /// <param name="quizzes">The list of quizzes to display buttons for.</param>
+        /// <param name="student">The student for whom the quizzes are displayed.</param>
+        /// <param name="position">The position to start displaying buttons.</param>
+        /// <param name="isOpen">Indicates whether the quizzes are open or closed.</param>
         private void DisplayQuizButtons(List<Models.Quiz> quizzes, Student student, ref int position, bool isOpen)
         {
             foreach (Models.Quiz q in quizzes)
@@ -92,6 +106,12 @@ namespace ClassSmart.Forms.Class
             }
         }
 
+        /// <summary>
+        /// Checks if the user has taken the specified quiz.
+        /// </summary>
+        /// <param name="studentID">The ID of the student.</param>
+        /// <param name="quizId">The ID of the quiz.</param>
+        /// <returns>True if the user has taken the quiz, otherwise false.</returns>
         private bool CheckIfUserHasTakenQuiz(long studentID, long quizId)
         {
             AttemptRepository attemptRepository = new AttemptRepository(new ApplicationDBContext());
@@ -102,6 +122,12 @@ namespace ClassSmart.Forms.Class
             return attempt != null; // Return true if found
         }
 
+        /// <summary>
+        /// Handles the click event for the quiz buttons.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        /// <param name="q">The quiz associated with the button.</param>
         private void NewButton_Click(object sender, EventArgs e, Models.Quiz q)
         {
             QuizAttemptForm quizAttemptForm = new QuizAttemptForm(q, studentDashboardForm);
@@ -109,21 +135,18 @@ namespace ClassSmart.Forms.Class
             Hide();
         }
 
+        /// <summary>
+        /// Handles the Cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-            "Are You Sure You Want To Cancel?",
-            "Confirm Cancel",
-            MessageBoxButtons.OKCancel,
-            MessageBoxIcon.Warning
-            );
-
-            if (result == DialogResult.OK)
-            {
-                studentDashboardForm.Show();
-                Hide();
-                Dispose();
-            }
+            studentDashboardForm.Show();
+            Hide();
+            Dispose();
         }
     }
 }
+
+

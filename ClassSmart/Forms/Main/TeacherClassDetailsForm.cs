@@ -1,42 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ClassSmart.Data;
+﻿using ClassSmart.Data;
 using ClassSmart.Data.Repositories;
 using ClassSmart.Model;
-using ClassSmart.Models;
 using ClassSmart.Services;
 
 namespace ClassSmart.Forms.Main
 {
+    /// <summary>
+    /// Form for displaying teacher class details.
+    /// </summary>
     public partial class TeacherClassDetailsForm : Form
     {
         private TeacherDashboardForm teacherDashboardForm;
         private Teacher teacher;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeacherClassDetailsForm"/> class.
+        /// </summary>
+        /// <param name="teacher">The teacher whose class details are to be displayed.</param>
+        /// <param name="teacherDashboardForm">The dashboard form to return to after closing this form.</param>
         public TeacherClassDetailsForm(Teacher teacher, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacher = teacher;
             this.teacherDashboardForm = teacherDashboardForm;
-            InitializeComponent();          
+            InitializeComponent();
 
-            //Display Class Information Here
+            // Display Class Information Here
             DisplayClass(teacher);
             FormClosing += new FormClosingEventHandler(TeacherClassDetailsForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void TeacherClassDetailsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
-        //Method to Display Class Information
+        /// <summary>
+        /// Displays the class information for the specified teacher.
+        /// </summary>
+        /// <param name="teacher">The teacher whose class information is to be displayed.</param>
         private void DisplayClass(Teacher teacher)
         {
             ClassRepository classRepository = new ClassRepository(new ApplicationDBContext());
@@ -47,19 +53,17 @@ namespace ClassSmart.Forms.Main
 
             List<Student> students = userService.GetStudentsForClass(teacherClass);
 
-            //Available Variable for checking if student objects are in <Student> Students list in class Class
+            // Available Variable for checking if student objects are in <Student> Students list in class Class
             bool available = false;
-
-
 
             // Clear the label text before appending
             label2.Text = string.Empty;
 
-            //Display ID of Class and Teacher
+            // Display ID of Class and Teacher
             label2.Text += "Class ID: " + Convert.ToString(teacherClass.Id) + Environment.NewLine;
             label2.Text += "Teacher ID: " + Convert.ToString(teacherClass.TeacherId) + Environment.NewLine;
 
-            //Displays Students in each Class
+            // Displays Students in each Class
             if (students == null)
             {
                 label2.Text += "Error. Students has not been initialised" + Environment.NewLine;
@@ -83,21 +87,16 @@ namespace ClassSmart.Forms.Main
             }
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Are You Sure You Want To Cancel?",
-                "Confirm Cancel",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning
-            );
-
-            if (result == DialogResult.OK)
-            {
-                teacherDashboardForm.Show();
-                Hide();
-                Dispose();
-            }
+            Hide();
+            Dispose();
+            teacherDashboardForm.Show();
         }
     }
 }

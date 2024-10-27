@@ -5,20 +5,22 @@ using ClassSmart.Model;
 using ClassSmart.Models;
 using ClassSmart.Services;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ClassSmart.Forms.Quiz
 {
+    /// <summary>
+    /// Form for creating questions for a quiz.
+    /// </summary>
     public partial class QuizCreateQuestionsForm : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuizCreateQuestionsForm"/> class.
+        /// </summary>
+        /// <param name="teacher">The teacher creating the quiz.</param>
+        /// <param name="teacherDashboardForm">The teacher dashboard form to return to after creating the quiz.</param>
+        /// <param name="quizCreateMainForm">The main form for creating the quiz.</param>
+        /// <param name="quiz">The quiz being created.</param>
+        /// <param name="numOfQuestions">The number of questions to create.</param>
         public QuizCreateQuestionsForm(Teacher teacher, TeacherDashboardForm teacherDashboardForm, QuizCreateMainForm quizCreateMainForm, Models.Quiz quiz, int numOfQuestions)
         {
             this.teacherDashboardForm = teacherDashboardForm;
@@ -34,18 +36,25 @@ namespace ClassSmart.Forms.Quiz
 
             _quizService = new QuizService(classRepository, quizRepository, userRepository);
 
-
             InitializeComponent();
             comboBox1.DataSource = Enum.GetValues(typeof(QuestionType));
             FormClosing += new FormClosingEventHandler(QuizCreateQuestionsForm_FormClosing);
             label1.Text = $"Quiz: {quiz.Name} - Question #{questionNumber}";
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void QuizCreateQuestionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Displays controls for multiple choice questions.
+        /// </summary>
         private void displayMultipleChoice()
         {
             Controls.Add(label3);
@@ -60,6 +69,9 @@ namespace ClassSmart.Forms.Quiz
             Controls.Add(textBox1);
         }
 
+        /// <summary>
+        /// Displays controls for true/false questions.
+        /// </summary>
         private void displayTrueFalse()
         {
             Controls.Add(radioButton2);
@@ -70,6 +82,11 @@ namespace ClassSmart.Forms.Quiz
             Controls.Add(label7);
         }
 
+        /// <summary>
+        /// Handles the combo box selection change event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             clearControls();
@@ -89,6 +106,9 @@ namespace ClassSmart.Forms.Quiz
             }
         }
 
+        /// <summary>
+        /// Clears the dynamic controls from the form.
+        /// </summary>
         private void clearControls()
         {
             var controlsToRemove = new List<Control> { checkBox1, checkBox2, checkBox3, checkBox4, label3, label4, textBox1, textBox2,
@@ -100,6 +120,11 @@ namespace ClassSmart.Forms.Quiz
             }
         }
 
+        /// <summary>
+        /// Handles the next question button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void nextQuestionBtn_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem != null)
@@ -171,6 +196,9 @@ namespace ClassSmart.Forms.Quiz
             }
         }
 
+        /// <summary>
+        /// Increments the question number and updates the form.
+        /// </summary>
         private void incrementQuestion()
         {
             questionNumber++;
@@ -211,6 +239,11 @@ namespace ClassSmart.Forms.Quiz
             }
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(

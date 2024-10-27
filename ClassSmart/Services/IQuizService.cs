@@ -1,15 +1,15 @@
 ﻿using ClassSmart.Model;
 using ClassSmart.Models;
 
-namespace ClassSmart.Data.Repositories
+namespace ClassSmart.Services
 {
-    public interface IQuizRepository
+    public interface IQuizService
     {
-        void AddQuiz(Quiz quiz);
+        void CreateQuizForTeacher(Teacher teacher, Quiz quiz);
         Quiz GetQuizByName(string quizName, Teacher teacher);
         List<Quiz> GetQuizzesByTeacher(Teacher teacher);
+        Quiz GetQuizById(int id);
         void DeleteQuiz(int quizId);
         void UpdateQuiz(Quiz quiz);
-        Quiz getQuizById(int id);
     }
 }

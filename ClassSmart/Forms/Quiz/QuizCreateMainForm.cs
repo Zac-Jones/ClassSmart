@@ -1,22 +1,19 @@
 ﻿using ClassSmart.Forms.Quiz;
 using ClassSmart.Model;
-using ClassSmart.Models;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ClassSmart.Forms
 {
+    /// <summary>
+    /// Form for creating a new quiz.
+    /// </summary>
     public partial class QuizCreateMainForm : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuizCreateMainForm"/> class.
+        /// </summary>
+        /// <param name="teacher">The teacher creating the quiz.</param>
+        /// <param name="teacherDashboardForm">The teacher dashboard form to return to after creating the quiz.</param>
         public QuizCreateMainForm(Teacher teacher, TeacherDashboardForm teacherDashboardForm)
         {
             this.teacherDashboardForm = teacherDashboardForm;
@@ -25,11 +22,21 @@ namespace ClassSmart.Forms
             FormClosing += new FormClosingEventHandler(QuizCreateForm_FormClosing);
         }
 
+        /// <summary>
+        /// Handles the form closing event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void QuizCreateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Handles the add questions button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void addQuestionsBtn_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.IsNullOrEmpty())
@@ -81,6 +88,11 @@ namespace ClassSmart.Forms
             Hide();
         }
 
+        /// <summary>
+        /// Handles the cancel button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             teacherDashboardForm.Show();

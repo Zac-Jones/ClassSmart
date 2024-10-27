@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ClassSmart.Utilities
+﻿namespace ClassSmart.Utilities
 {
+    /// <summary>  
+    /// Utility class for filtering collections.  
+    /// </summary>  
     public static class CollectionFilterUtil
     {
-        // Generic method to filter a collection based on a predicate
+        /// <summary>  
+        /// Filters a collection based on a predicate.  
+        /// </summary>  
+        /// <typeparam name="T">The type of elements in the collection.</typeparam>  
+        /// <param name="items">The collection of items to filter.</param>  
+        /// <param name="condition">The predicate to apply to each item.</param>  
+        /// <returns>A list of items that satisfy the predicate.</returns>  
         public static List<T> Filter<T>(List<T> items, Func<T, bool> condition)
         {
             List<T> filteredItems = new List<T>();
@@ -19,7 +25,14 @@ namespace ClassSmart.Utilities
             return filteredItems;
         }
 
-        // Example generic method to find an item by ID (assuming each entity has an Id property)
+        /// <summary>  
+        /// Finds an item by its identifier.  
+        /// </summary>  
+        /// <typeparam name="T">The type of elements in the collection.</typeparam>  
+        /// <param name="items">The collection of items to search.</param>  
+        /// <param name="idSelector">A function to select the identifier from an item.</param>  
+        /// <param name="id">The identifier to search for.</param>  
+        /// <returns>The item with the specified identifier, or the default value if not found.</returns>  
         public static T FindById<T>(List<T> items, Func<T, long> idSelector, long id)
         {
             foreach (T item in items)
